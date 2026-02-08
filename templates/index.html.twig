@@ -1,0 +1,296 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+   
+{% endblock %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="/css/chapters.css">
+{% endblock %}
+
+
+{% block main %}
+
+  
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header class="page-header">
+            <div class="page-header-top">
+                <div>
+                    <h1 class="page-title">📑 Главы и разделы</h1>
+                    {# <p class="page-subtitle">Структура книги «Хроники Нового Мира»</p> #}
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary">+ Новая глава</button>
+                    <button class="btn btn-secondary">⟳ Обновить саммари</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-body">
+            {# 
+            <!-- Filters -->
+            <div class="filter-bar">
+                <span style="font-size: 13px; color: var(--text-secondary); margin-right: 4px;">Статус:</span>
+                <a href="chapters.html" class="filter-chip active">Все</a>
+                <a href="chapters.html?status=done" class="filter-chip">✅ Завершены</a>
+                <a href="chapters.html?status=draft" class="filter-chip">✏️ Черновик</a>
+                <a href="chapters.html?status=review" class="filter-chip">🔍 На ревью</a>
+                <a href="chapters.html?status=todo" class="filter-chip">📌 К написанию</a>
+            </div>
+            #}
+
+            <div class="chapters-layout">
+                <!-- Tree Navigation -->
+                <div class="chapters-tree-panel">
+                    <div class="tree-header">
+                        <span class="tree-title">Содержание</span>
+                        <button class="btn btn-ghost btn-sm">⊞</button>
+                    </div>
+                    <ul class="tree-list">
+
+                        {% for section in sections %}
+                        <li class="tree-chapter">
+                            <div class="tree-chapter-header active">
+                                <span class="tree-toggle expanded">▶</span>
+                                <span class="tree-chapter-num">1</span>
+                                {{section.title}}
+                            </div>
+                            <ul class="tree-sections">
+                                {% for subSection in section.sections %}
+                                    <li><a href="{{ path('section', { 'id': subSection.id })}}" class="tree-section-link">{{subSection.title}}</a></li>
+                                {% endfor %}
+                                
+                            </ul>
+                        </li>
+                        {% endfor %}
+
+                        {# 
+                        <li class="tree-chapter">
+                            <div class="tree-chapter-header">
+                                <span class="tree-toggle expanded">▶</span>
+                                <span class="tree-chapter-num">2</span>
+                                Тёмный лес
+                            </div>
+                            <ul class="tree-sections">
+                                <li><a href="chapter-view.html?chapter=2&section=1" class="tree-section-link">2.1 Тропа</a></li>
+                                <li><a href="chapter-view.html?chapter=2&section=2" class="tree-section-link">2.2 Встреча с хранителем</a></li>
+                            </ul>
+                        </li>
+                        <li class="tree-chapter">
+                            <div class="tree-chapter-header">
+                                <span class="tree-toggle">▶</span>
+                                <span class="tree-chapter-num">3</span>
+                                Скрытое знание
+                            </div>
+                        </li>
+                        <li class="tree-chapter">
+                            <div class="tree-chapter-header">
+                                <span class="tree-toggle">▶</span>
+                                <span class="tree-chapter-num">7</span>
+                                Битва за Стену
+                            </div>
+                        </li>
+                        <li class="tree-chapter">
+                            <div class="tree-chapter-header">
+                                <span class="tree-toggle">▶</span>
+                                <span class="tree-chapter-num">8</span>
+                                Предательство
+                            </div>
+                        </li>
+                        #}
+                    </ul>
+                </div>
+
+                <!-- Chapters Cards -->
+                <div class="chapters-content">
+
+                    <!-- Chapter 1 -->
+                    <div class="chapter-card">
+                        <div class="chapter-card-header">
+                            <div class="chapter-card-info">
+                                <div class="chapter-card-num">Глава 1</div>
+                                <h2 class="chapter-card-title">
+                                    <a href="chapter-view.html?chapter=1">Начало пути</a>
+                                </h2>
+                                <p class="chapter-card-desc">Главный герой просыпается в незнакомом мире и обнаруживает свои способности. Первые шаги в новой реальности...</p>
+                            </div>
+                            <div class="chapter-card-actions">
+                                <a href="editor.html?chapter=1" class="btn btn-secondary btn-sm">✏️ Редактировать</a>
+                                <a href="summary.html?chapter=1" class="btn btn-ghost btn-sm">📝 Саммари</a>
+                            </div>
+                        </div>
+                        <div class="chapter-stats">
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">📊</span>
+                                Слов: <span class="chapter-stat-value">5,240</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">🔤</span>
+                                Символов: <span class="chapter-stat-value">31,440</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">📅</span>
+                                Изменено: <span class="chapter-stat-value">12 дек 2024</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="badge badge-green">✅ Завершена</span>
+                            </div>
+                        </div>
+                        <div class="section-list">
+                            <div class="section-item">
+                                <div class="section-status-dot done"></div>
+                                <span class="section-num">1.1</span>
+                                <div class="section-info">
+                                    <div class="section-title"><a href="chapter-view.html?chapter=1&section=1">Пробуждение</a></div>
+                                    <div class="section-meta">
+                                        <span>1,820 слов</span>
+                                        <span>10 дек 2024</span>
+                                    </div>
+                                </div>
+                                <div class="section-actions">
+                                    <a href="editor.html?chapter=1&section=1" class="btn btn-ghost btn-sm">✏️</a>
+                                    <a href="summary.html?chapter=1&section=1" class="btn btn-ghost btn-sm">📝</a>
+                                </div>
+                            </div>
+                            <div class="section-item">
+                                <div class="section-status-dot done"></div>
+                                <span class="section-num">1.2</span>
+                                <div class="section-info">
+                                    <div class="section-title"><a href="chapter-view.html?chapter=1&section=2">Деревня у реки</a></div>
+                                    <div class="section-meta">
+                                        <span>2,100 слов</span>
+                                        <span>11 дек 2024</span>
+                                    </div>
+                                </div>
+                                <div class="section-actions">
+                                    <a href="editor.html?chapter=1&section=2" class="btn btn-ghost btn-sm">✏️</a>
+                                    <a href="summary.html?chapter=1&section=2" class="btn btn-ghost btn-sm">📝</a>
+                                </div>
+                            </div>
+                            <div class="section-item">
+                                <div class="section-status-dot done"></div>
+                                <span class="section-num">1.3</span>
+                                <div class="section-info">
+                                    <div class="section-title"><a href="chapter-view.html?chapter=1&section=3">Первый знак</a></div>
+                                    <div class="section-meta">
+                                        <span>1,320 слов</span>
+                                        <span>12 дек 2024</span>
+                                    </div>
+                                </div>
+                                <div class="section-actions">
+                                    <a href="editor.html?chapter=1&section=3" class="btn btn-ghost btn-sm">✏️</a>
+                                    <a href="summary.html?chapter=1&section=3" class="btn btn-ghost btn-sm">📝</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 7 — in progress -->
+                    <div class="chapter-card">
+                        <div class="chapter-card-header">
+                            <div class="chapter-card-info">
+                                <div class="chapter-card-num">Глава 7</div>
+                                <h2 class="chapter-card-title">
+                                    <a href="chapter-view.html?chapter=7">Битва за Стену</a>
+                                </h2>
+                                <p class="chapter-card-desc">Масштабное сражение у границы. Герои вынуждены принять решение, которое изменит ход войны навсегда.</p>
+                            </div>
+                            <div class="chapter-card-actions">
+                                <a href="editor.html?chapter=7" class="btn btn-primary btn-sm">✏️ Продолжить</a>
+                                <a href="summary.html?chapter=7" class="btn btn-ghost btn-sm">📝 Саммари</a>
+                                <a href="discussion.html?chapter=7" class="btn btn-ghost btn-sm">💬</a>
+                            </div>
+                        </div>
+                        <div class="chapter-stats">
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">📊</span>
+                                Слов: <span class="chapter-stat-value">3,410</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">🔤</span>
+                                Символов: <span class="chapter-stat-value">20,460</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">📅</span>
+                                Изменено: <span class="chapter-stat-value">Сегодня, 14:23</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="badge badge-blue">✏️ Черновик — 65%</span>
+                            </div>
+                        </div>
+                        <div class="section-list">
+                            <div class="section-item">
+                                <div class="section-status-dot done"></div>
+                                <span class="section-num">7.1</span>
+                                <div class="section-info">
+                                    <div class="section-title"><a href="chapter-view.html?chapter=7&section=1">Рассвет перед боем</a></div>
+                                    <div class="section-meta"><span>1,540 слов</span><span>Вчера</span></div>
+                                </div>
+                                <div class="section-actions">
+                                    <a href="editor.html?chapter=7&section=1" class="btn btn-ghost btn-sm">✏️</a>
+                                </div>
+                            </div>
+                            <div class="section-item">
+                                <div class="section-status-dot draft"></div>
+                                <span class="section-num">7.2</span>
+                                <div class="section-info">
+                                    <div class="section-title"><a href="chapter-view.html?chapter=7&section=2">Первая волна</a></div>
+                                    <div class="section-meta"><span>1,870 слов</span><span>Сегодня</span></div>
+                                </div>
+                                <div class="section-actions">
+                                    <a href="editor.html?chapter=7&section=2" class="btn btn-ghost btn-sm">✏️</a>
+                                </div>
+                            </div>
+                            <div class="section-item">
+                                <div class="section-status-dot todo"></div>
+                                <span class="section-num">7.3</span>
+                                <div class="section-info">
+                                    <div class="section-title"><a href="#">Решение командира</a></div>
+                                    <div class="section-meta"><span>Не начат</span></div>
+                                </div>
+                                <div class="section-actions">
+                                    <a href="editor.html?chapter=7&section=3" class="btn btn-ghost btn-sm">✏️</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 8 — early draft -->
+                    <div class="chapter-card">
+                        <div class="chapter-card-header">
+                            <div class="chapter-card-info">
+                                <div class="chapter-card-num">Глава 8</div>
+                                <h2 class="chapter-card-title">
+                                    <a href="chapter-view.html?chapter=8">Предательство</a>
+                                </h2>
+                                <p class="chapter-card-desc">Неожиданный поворот: союзник оказывается врагом. Последствия для группы катастрофические.</p>
+                            </div>
+                            <div class="chapter-card-actions">
+                                <a href="editor.html?chapter=8" class="btn btn-secondary btn-sm">✏️ Начать</a>
+                                <a href="discussion.html?chapter=8" class="btn btn-ghost btn-sm">💬</a>
+                            </div>
+                        </div>
+                        <div class="chapter-stats">
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">📊</span>
+                                Слов: <span class="chapter-stat-value">980</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">📅</span>
+                                Изменено: <span class="chapter-stat-value">10 дек 2024</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="badge badge-orange">◑ Ранний черновик — 20%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+

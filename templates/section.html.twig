@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+   
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/css/chapter-view.css">
+{% endblock %}
+
+
+{% block main %}
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header class="page-header">
+            <div class="page-header-top">
+                <div>
+                    <h1 class="page-title">
+                        {% if section.parent %}
+                            {{section.parent.title}} -> 
+                        {% endif %}
+                            {{section.title}}
+                    </h1>
+                    {# <p class="page-subtitle">Раздел 7.2 — {{section.title}}</p> #}
+                </div>
+                <div class="page-actions">
+                    <a href="{{ path('section_red', { 'id': section.id })}}" class="btn btn-primary">✏️ Редактировать</a>
+                    <a href="summary.html?chapter=7" class="btn btn-secondary">📝 Саммари</a>
+                    <a href="discussion.html?chapter=7" class="btn btn-secondary">💬 Обсуждение</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="chapter-view-layout">
+            <!-- Text Area -->
+            <div class="chapter-text-area">
+                <div class="chapter-meta">
+                    {# <div class="chapter-meta-num">Глава 7 · Раздел 2</div> #}
+                    <h2 class="chapter-meta-title">{{section.title}}</h2>
+                    <div class="chapter-meta-info">
+                        <span class="chapter-meta-item">📊 {{section.words}}  слов</span>
+                        <span class="chapter-meta-item">🔤 {{section.simbols}} символов</span>
+                        <span class="chapter-meta-item">📅 Сегодня, 14:23</span>
+                        {# <span class="chapter-meta-item"><span class="badge badge-blue">Черновик</span></span> #}
+                    </div>
+                </div>
+
+                <div class="book-text">
+                   
+                    {{section.text}}
+
+                </div>
+
+                <!-- Chapter Navigation -->
+                <div class="chapter-nav">
+                    <a href="chapter-view.html?chapter=7&section=1" class="chapter-nav-item prev">
+                        <span class="chapter-nav-label">← Предыдущий раздел</span>
+                        <span class="chapter-nav-title">7.1 Рассвет перед боем</span>
+                    </a>
+                    <a href="chapter-view.html?chapter=7&section=3" class="chapter-nav-item next">
+                        <span class="chapter-nav-label">Следующий раздел →</span>
+                        <span class="chapter-nav-title">7.3 Решение командира</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Comments Sidebar -->
+            <div class="comments-sidebar">
+                <div class="comments-sidebar-header">
+                    <div class="comments-sidebar-title">
+                        💬 Комментарии <span class="comments-count">6</span>
+                    </div>
+                    <button class="btn btn-sm btn-ghost">+ Запросить</button>
+                </div>
+
+                <!-- Comment filters -->
+                <div class="comment-filters">
+                    <a href="chapter-view.html?chapter=7&section=2&agent=all" class="comment-filter active">Все</a>
+                    <a href="chapter-view.html?chapter=7&section=2&agent=editor" class="comment-filter">Редактор</a>
+                    <a href="chapter-view.html?chapter=7&section=2&agent=critic" class="comment-filter">Критик</a>
+                    <a href="chapter-view.html?chapter=7&section=2&agent=writer" class="comment-filter">Писатель</a>
+                    <a href="chapter-view.html?chapter=7&section=2&agent=stylist" class="comment-filter">Стилист</a>
+                </div>
+
+                <div class="comment-list">
+                    <!-- Comment from Editor -->
+                    <div class="comment-block editor">
+                        <div class="comment-block-header">
+                            <div class="avatar avatar-sm avatar-editor">Р</div>
+                            <div>
+                                <div class="comment-agent-name">Редактор</div>
+                                <div class="comment-agent-role">Структура и связность</div>
+                            </div>
+                            <span class="comment-time">2ч назад</span>
+                        </div>
+                        <div class="comment-block-body">
+                            <p class="comment-text">Отличная динамика в начале раздела. Однако переход от описания стены к диалогу с капитаном можно сделать более плавным. Рекомендую добавить промежуточное предложение, связывающее физические ощущения героя с командой.</p>
+                            <div class="comment-ref">📌 «Первая линия, приготовиться!»</div>
+                        </div>
+                        <div class="comment-block-footer">
+                            <button class="comment-action">👍 Полезно</button>
+                            <button class="comment-action">💬 Ответить</button>
+                            <button class="comment-action">✅ Принять</button>
+                        </div>
+                    </div>
+
+                    <!-- Comment from Critic -->
+                    <div class="comment-block critic">
+                        <div class="comment-block-header">
+                            <div class="avatar avatar-sm avatar-critic">К</div>
+                            <div>
+                                <div class="comment-agent-name">Критик</div>
+                                <div class="comment-agent-role">Логика и ошибки</div>
+                            </div>
+                            <span class="comment-time">1ч назад</span>
+                        </div>
+                        <div class="comment-block-body">
+                            <p class="comment-text">Проблема: в Главе 5 установлено, что Лина получила ранение правого плеча. Она не может использовать лук «спокойно» без упоминания боли или компенсации. Это нарушает внутреннюю логику.</p>
+                            <div class="comment-ref">📌 «Она стояла... с луком наготове, спокойная»</div>
+                        </div>
+                        <div class="comment-block-footer">
+                            <button class="comment-action">👍 Полезно</button>
+                            <button class="comment-action">💬 Ответить</button>
+                            <button class="comment-action">✅ Принять</button>
+                        </div>
+                    </div>
+
+                    <!-- Comment from Stylist -->
+                    <div class="comment-block stylist">
+                        <div class="comment-block-header">
+                            <div class="avatar avatar-sm avatar-stylist">С</div>
+                            <div>
+                                <div class="comment-agent-name">Стилист</div>
+                                <div class="comment-agent-role">Язык и образы</div>
+                            </div>
+                            <span class="comment-time">45м назад</span>
+                        </div>
+                        <div class="comment-block-body">
+                            <p class="comment-text">Метафора «фосфорический свет» великолепна, но «хитиновые панцири цвета запёкшейся крови» — перегруженный образ. Попробуйте разбить на два предложения или убрать один из дескрипторов.</p>
+                            <div class="comment-ref">📌 «Их глаза — если это можно было назвать глазами...»</div>
+                        </div>
+                        <div class="comment-block-footer">
+                            <button class="comment-action">👍 Полезно</button>
+                            <button class="comment-action">💬 Ответить</button>
+                            <button class="comment-action">✅ Принять</button>
+                        </div>
+                    </div>
+
+                    <!-- Comment from Writer -->
+                    <div class="comment-block writer">
+                        <div class="comment-block-header">
+                            <div class="avatar avatar-sm avatar-writer">П</div>
+                            <div>
+                                <div class="comment-agent-name">Писатель</div>
+                                <div class="comment-agent-role">Генерация текста</div>
+                            </div>
+                            <span class="comment-time">30м назад</span>
+                        </div>
+                        <div class="comment-block-body">
+                            <p class="comment-text">Предлагаю вариант для фрагмента «Он ударил»: дополнить внутренним монологом, чтобы усилить эмоциональный вес первого убийства. Например: «Он ударил — и мир замер. Не от предсмертного крика твари, а от тишины внутри. Той пустоты, которая образуется, когда переступаешь черту.»</p>
+                        </div>
+                        <div class="comment-block-footer">
+                            <button class="comment-action">👍 Полезно</button>
+                            <button class="comment-action">💬 Ответить</button>
+                            <button class="comment-action">📋 Вставить в текст</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add comment -->
+                <div class="add-comment-area">
+                    <div class="add-comment-label">Запросить комментарий ИИ</div>
+                    <textarea class="add-comment-input" placeholder="Опишите, что хотите обсудить или получить отзыв..."></textarea>
+                    <div class="add-comment-actions">
+                        <select class="form-select" style="width: auto; padding: 5px 10px; font-size: 12px;">
+                            <option>Все агенты</option>
+                            <option>Редактор</option>
+                            <option>Критик</option>
+                            <option>Писатель</option>
+                            <option>Стилист</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+  
+   
+{% endblock %}
+

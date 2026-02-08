@@ -1,0 +1,217 @@
+/* ============================================
+   SUMMARY.CSS — Chapter/Section summary page
+   ============================================ */
+
+.summary-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+}
+
+/* Summary Main */
+.summary-main {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+}
+
+.summary-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.summary-chapter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-purple);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.summary-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.summary-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+}
+
+.summary-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Summary Content */
+.summary-content {
+    padding: 24px;
+}
+
+.summary-section {
+    margin-bottom: 28px;
+}
+
+.summary-section:last-child {
+    margin-bottom: 0;
+}
+
+.summary-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.summary-section-icon {
+    color: var(--accent-blue);
+}
+
+.summary-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.summary-text p {
+    margin-bottom: 12px;
+}
+
+/* Key Points */
+.key-points-list {
+    list-style: none;
+}
+
+.key-point-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-secondary);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.key-point-item:last-child {
+    border-bottom: none;
+}
+
+.key-point-bullet {
+    width: 24px;
+    height: 24px;
+    background: rgba(88, 166, 255, 0.1);
+    color: var(--accent-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Characters/Entities mentioned */
+.entity-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.entity-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Summary Sidebar */
+.summary-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.summary-sidebar-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+}
+
+.summary-sidebar-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-secondary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.summary-sidebar-body {
+    padding: 16px;
+}
+
+/* Связанные главы */
+.related-chapter-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.related-chapter-item:last-child {
+    border-bottom: none;
+}
+
+.related-chapter-num {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    min-width: 24px;
+}
+
+.related-chapter-link {
+    font-size: 13px;
+}
+
+/* Summary versions */
+.version-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-secondary);
+    font-size: 13px;
+}
+
+.version-item:last-child {
+    border-bottom: none;
+}
+
+.version-date {
+    color: var(--text-tertiary);
+}
+
+.version-agent {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@media (max-width: 1024px) {
+    .summary-layout {
+        grid-template-columns: 1fr;
+    }
+}

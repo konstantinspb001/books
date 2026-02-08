@@ -1,12 +1,68 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookForge — Главы и разделы</title>
+    <link rel="stylesheet" href="/css/common.css">
+
+{% block css %}
+   
+{% endblock %}
+
+
+</head>
+<body>
+
+    <!-- SIDEBAR (same as index.html) -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <div class="sidebar-logo-icon">📖</div>
+                <div>
+                    <div class="sidebar-logo-text">BookAi</div>
+                    <div class="sidebar-logo-subtitle">Сетевая диаспора</div>
+                </div>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Основное</div>
+                <a href="/" class="nav-item active"><span class="nav-item-icon">📑</span> Главы и разделы <span class="nav-item-badge">12</span></a>
+                <a href="editor.html" class="nav-item"><span class="nav-item-icon">✏️</span> Редактор</a>
+                 <a href="/agents" class="nav-item"><span class="nav-item-icon">🤖</span> Соавторы (ИИ) <span class="nav-item-badge">5</span></a>
+                <a href="/dashbord" class="nav-item"><span class="nav-item-icon">🏠</span> Дашборд</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Совместная работа</div>
+               
+                <a href="discussion.html" class="nav-item"><span class="nav-item-icon">💬</span> Обсуждения <span class="nav-item-badge">3</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Планирование</div>
+                <a href="plans.html" class="nav-item"><span class="nav-item-icon">📋</span> Планы</a>
+                <a href="ideas.html" class="nav-item"><span class="nav-item-icon">💡</span> Идеи и замечания <span class="nav-item-badge">8</span></a>
+                <a href="summary.html" class="nav-item"><span class="nav-item-icon">📝</span> Саммари</a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="book-progress">
+                <div class="book-progress-label"><span>Прогресс книги</span><span>34%</span></div>
+                <div class="progress-bar"><div class="progress-bar-fill" style="width: 34%"></div></div>
+            </div>
+            <div class="book-stats-mini"><span>42,350 слов</span><span>·</span><span>12 глав</span></div>
+        </div>
+    </aside>
+
+
+{% block main %}
+ 
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}
+
+</body>
 </html>

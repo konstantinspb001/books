@@ -1,3 +1,12 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+main:
+    path: /
+    controller: App\Controller\DefaultController::index  
+section:
+    path: /section/{id}
+    controller: App\Controller\SectionController::section     
+section_red:
+    path: /section_red/{id}
+    controller: App\Controller\SectionController::edite     
