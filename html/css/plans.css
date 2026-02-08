@@ -1,0 +1,385 @@
+/* ============================================
+   PLANS.CSS — Book plans and outline styles
+   ============================================ */
+
+.plans-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+}
+
+/* Plan Main */
+.plans-main {
+    min-width: 0;
+}
+
+/* Plan Overview Card */
+.plan-overview {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.plan-overview-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.plan-overview-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.plan-overview-stats {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.plan-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    min-width: 100px;
+}
+
+.plan-stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.plan-stat-value.blue { color: var(--accent-blue); }
+.plan-stat-value.green { color: var(--accent-green); }
+.plan-stat-value.orange { color: var(--accent-orange); }
+.plan-stat-value.purple { color: var(--accent-purple); }
+
+.plan-stat-label {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding-left: 28px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-primary);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -26px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-primary);
+    z-index: 1;
+}
+
+.timeline-dot.completed {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+.timeline-dot.current {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.2);
+}
+
+.timeline-dot.upcoming {
+    background: var(--bg-tertiary);
+    border-color: var(--text-tertiary);
+}
+
+.timeline-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    transition: border-color var(--transition-fast);
+}
+
+.timeline-card:hover {
+    border-color: var(--text-tertiary);
+}
+
+.timeline-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.timeline-card-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.timeline-card-date {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.timeline-card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.timeline-card-tasks {
+    list-style: none;
+}
+
+.timeline-task {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.timeline-task-check {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border-primary);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.timeline-task-check.done {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    color: #fff;
+}
+
+.timeline-task.done {
+    color: var(--text-tertiary);
+    text-decoration: line-through;
+}
+
+/* Outline/Plan Tree */
+.plan-outline {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    margin-bottom: 24px;
+}
+
+.plan-outline-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.plan-outline-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.plan-outline-body {
+    padding: 12px 0;
+}
+
+.plan-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 20px;
+    transition: background var(--transition-fast);
+}
+
+.plan-item:hover {
+    background: var(--bg-hover);
+}
+
+.plan-item-handle {
+    color: var(--text-tertiary);
+    cursor: grab;
+    padding: 2px;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.plan-item-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.plan-item-status.done { background: var(--accent-green); }
+.plan-item-status.progress { background: var(--accent-blue); }
+.plan-item-status.draft { background: var(--accent-orange); }
+.plan-item-status.todo { background: var(--text-tertiary); }
+
+.plan-item-content {
+    flex: 1;
+}
+
+.plan-item-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.plan-item-notes {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.plan-item-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.plan-item:hover .plan-item-actions {
+    opacity: 1;
+}
+
+/* Sub-items */
+.plan-sub-items {
+    padding-left: 32px;
+}
+
+.plan-sub-items .plan-item {
+    padding: 6px 20px;
+}
+
+/* Plans Sidebar */
+.plans-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.milestone-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+}
+
+.milestone-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-secondary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.milestone-body {
+    padding: 12px 16px;
+}
+
+.milestone-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-secondary);
+    font-size: 13px;
+}
+
+.milestone-item:last-child {
+    border-bottom: none;
+}
+
+.milestone-icon {
+    font-size: 16px;
+}
+
+.milestone-info {
+    flex: 1;
+}
+
+.milestone-name {
+    font-weight: 500;
+}
+
+.milestone-date {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+/* Notes area for plans */
+.plan-notes-area {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+}
+
+.plan-notes-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.plan-notes-body {
+    padding: 16px;
+}
+
+.plan-note {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.plan-note:last-child {
+    border-bottom: none;
+}
+
+.plan-note-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.plan-note-meta {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+@media (max-width: 1024px) {
+    .plans-layout {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookForge — Редактор | Глава 7.2</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <div class="sidebar-logo-icon">📖</div>
+                <div><div class="sidebar-logo-text">BookForge</div><div class="sidebar-logo-subtitle">AI-Powered Writing</div></div>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Основное</div>
+                <a href="index.html" class="nav-item"><span class="nav-item-icon">🏠</span> Дашборд</a>
+                <a href="chapters.html" class="nav-item"><span class="nav-item-icon">📑</span> Главы и разделы</a>
+                <a href="editor.html" class="nav-item active"><span class="nav-item-icon">✏️</span> Редактор</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Совместная работа</div>
+                <a href="agents.html" class="nav-item"><span class="nav-item-icon">🤖</span> Соавторы (ИИ)</a>
+                <a href="discussion.html" class="nav-item"><span class="nav-item-icon">💬</span> Обсуждения</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Планирование</div>
+                <a href="plans.html" class="nav-item"><span class="nav-item-icon">📋</span> Планы</a>
+                <a href="ideas.html" class="nav-item"><span class="nav-item-icon">💡</span> Идеи и замечания</a>
+                <a href="summary.html" class="nav-item"><span class="nav-item-icon">📝</span> Саммари</a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="book-progress">
+                <div class="book-progress-label"><span>Прогресс книги</span><span>34%</span></div>
+                <div class="progress-bar"><div class="progress-bar-fill" style="width: 34%"></div></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header class="page-header">
+            <div class="page-header-top">
+                <div>
+                    <h1 class="page-title">✏️ Редактор</h1>
+                    <p class="page-subtitle">Глава 7, Раздел 2 — Первая волна</p>
+                </div>
+                <div class="page-actions">
+                    <div class="autosave-indicator">
+                        <span class="autosave-dot"></span>
+                        Автосохранение
+                    </div>
+                    <a href="chapter-view.html?chapter=7&section=2" class="btn btn-secondary">👁️ Просмотр</a>
+                    <button class="btn btn-success">💾 Сохранить</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="editor-layout">
+            <!-- Editor Area -->
+            <div class="editor-main">
+                <!-- Toolbar -->
+                <div class="editor-toolbar">
+                    <div class="toolbar-group">
+                        <select class="toolbar-select">
+                            <option>Параграф</option>
+                            <option>Заголовок 2</option>
+                            <option>Заголовок 3</option>
+                            <option>Цитата</option>
+                        </select>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" title="Жирный"><strong>B</strong></button>
+                        <button class="toolbar-btn" title="Курсив"><em>I</em></button>
+                        <button class="toolbar-btn" title="Подчёркнутый"><u>U</u></button>
+                        <button class="toolbar-btn" title="Зачёркнутый"><s>S</s></button>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" title="Маркированный список">☰</button>
+                        <button class="toolbar-btn" title="Нумерованный список">≡</button>
+                        <button class="toolbar-btn" title="Цитата">❝</button>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" title="Разделитель">—</button>
+                        <button class="toolbar-btn" title="Заметка">📌</button>
+                        <button class="toolbar-btn" title="Комментарий">💬</button>
+                    </div>
+                    <div class="toolbar-group" style="margin-left: auto; border-right: none;">
+                        <button class="toolbar-btn" title="Отменить">↩️</button>
+                        <button class="toolbar-btn" title="Повторить">↪️</button>
+                    </div>
+                </div>
+
+                <!-- Text area -->
+                <div class="editor-text-container">
+                    <textarea class="editor-textarea" placeholder="Начните писать...">Стена дрогнула. Не от удара — от рёва тысяч глоток, наполнивших предрассветный воздух первобытным страхом. Артём сжал рукоять меча так, что побелели костяшки пальцев, и посмотрел вдоль линии обороны. Лица бойцов были серыми в тусклом свете факелов — кто-то молился, кто-то застыл, глядя в темноту за стеной.
+
+— Первая линия, приготовиться! — голос капитана Ресса прорезал гул, как клинок. Он стоял на выступе, массивный и непоколебимый, словно сам был частью этой древней каменной кладки.
+
+Артём отыскал взглядом Лину. Она стояла через три бойца от него, с луком наготове, спокойная, как озёрная гладь. Их глаза встретились на мгновение. Она чуть кивнула — этот жест вмещал в себя всё: прощание, обещание, молитву. Артём кивнул в ответ.
+
+Земля задрожала. Не метафора — реальная вибрация, поднимающаяся сквозь подошвы сапог, по костям, к самому сердцу. Первая волна вышла из тумана.
+
+## Удар
+
+Они были огромны. Выше любого человека на две головы, закованные в хитиновые панцири цвета запёкшейся крови. Их глаза — если это можно было назвать глазами — горели тусклым фосфорическим светом, каждый шаг сотрясал мёрзлую почву.
+
+— Стрелки! — рявкнул Ресс.
+
+Звон тетив слился в один протяжный аккорд. Сотни стрел взмыли дугой, на мгновение замерли в высшей точке, будто раздумывая, и обрушились на наступающих. Большинство бессильно скользнули по панцирям. Но некоторые нашли щели — и существа заревели от боли, их рёв был таким, от которого что-то древнее внутри шептало: «Беги».
+
+> «Никогда не поворачивайся спиной к тому, кто проделал путь, чтобы убить тебя» — Заповедь Стражей Стены
+
+Артём сделал глубокий вдох. Мир сузился до кромки стены и тварей, карабкающихся по ней с противоестественной ловкостью. Первая из них перехватила край, подтянулась — и оказалась лицом к лицу с Артёмом. Запах серы и гнили. Глаза, в которых не было ничего, кроме голода.
+
+Он ударил.</textarea>
+                </div>
+
+                <!-- Save button duplicated below textarea -->
+                <div class="save-button-container">
+                    <button class="save-button">💾 Сохранить</button>
+                </div>
+
+                <!-- Status Bar -->
+                <div class="editor-statusbar">
+                    <div class="statusbar-left">
+                        <span class="statusbar-item">📊 Слов: 1,870</span>
+                        <span class="statusbar-item">🔤 Символов: 11,220</span>
+                        <span class="statusbar-item">📄 Параграфов: 14</span>
+                        <span class="statusbar-item">⏱️ ~7 мин чтения</span>
+                    </div>
+                    <div class="statusbar-saved">✓ Сохранено в 14:23</div>
+                </div>
+            </div>
+
+            <!-- Editor Sidebar -->
+            <div class="editor-sidebar">
+                <!-- Chapter/Section Info -->
+                <div class="editor-sidebar-section">
+                    <div class="editor-sidebar-header">
+                        <span class="editor-sidebar-title">📋 Информация</span>
+                        <span class="editor-sidebar-toggle">▾</span>
+                    </div>
+                    <div class="editor-sidebar-body">
+                        <div class="form-group">
+                            <label class="form-label">Название раздела</label>
+                            <input type="text" class="form-input" value="Первая волна">
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Глава</span>
+                            <span class="meta-value">7. Битва за Стену</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Раздел</span>
+                            <span class="meta-value">7.2</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Статус</span>
+                            <span class="meta-value"><span class="badge badge-blue">Черновик</span></span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Создано</span>
+                            <span class="meta-value">10 дек 2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Structure / Outline -->
+                <div class="editor-sidebar-section">
+                    <div class="editor-sidebar-header">
+                        <span class="editor-sidebar-title">🗂️ Структура</span>
+                        <span class="editor-sidebar-toggle">▾</span>
+                    </div>
+                    <div class="editor-sidebar-body">
+                        <ul class="outline-list">
+                            <li class="outline-item h2">
+                                <a href="#"><span class="outline-level">H2</span> Удар</a>
+                            </li>
+                        </ul>
+                        <p style="font-size: 12px; color: var(--text-tertiary); margin-top: 8px;">Добавьте заголовки H2/H3 для навигации</p>
+                    </div>
+                </div>
+
+                <!-- AI Assist -->
+                <div class="editor-sidebar-section">
+                    <div class="editor-sidebar-header">
+                        <span class="editor-sidebar-title">🤖 ИИ-Помощник</span>
+                        <span class="editor-sidebar-toggle">▾</span>
+                    </div>
+                    <div class="editor-sidebar-body">
+                        <div class="ai-assist-actions">
+                            <button class="ai-assist-btn">
+                                <span class="ai-assist-icon">📝</span>
+                                <div>
+                                    <div class="ai-assist-text">Продолжить текст</div>
+                                    <div class="ai-assist-desc">ИИ допишет следующий абзац</div>
+                                </div>
+                            </button>
+                            <button class="ai-assist-btn">
+                                <span class="ai-assist-icon">🔍</span>
+                                <div>
+                                    <div class="ai-assist-text">Проверить текст</div>
+                                    <div class="ai-assist-desc">Все агенты проанализируют</div>
+                                </div>
+                            </button>
+                            <button class="ai-assist-btn">
+                                <span class="ai-assist-icon">✨</span>
+                                <div>
+                                    <div class="ai-assist-text">Улучшить стиль</div>
+                                    <div class="ai-assist-desc">Стилист предложит правки</div>
+                                </div>
+                            </button>
+                            <button class="ai-assist-btn">
+                                <span class="ai-assist-icon">📋</span>
+                                <div>
+                                    <div class="ai-assist-text">Создать саммари</div>
+                                    <div class="ai-assist-desc">Сгенерировать краткое содержание</div>
+                                </div>
+                            </button>
+                            <button class="ai-assist-btn">
+                                <span class="ai-assist-icon">💬</span>
+                                <div>
+                                    <div class="ai-assist-text">Начать обсуждение</div>
+                                    <div class="ai-assist-desc">Мультиагентный разбор главы</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History -->
+                <div class="editor-sidebar-section">
+                    <div class="editor-sidebar-header">
+                        <span class="editor-sidebar-title">🕐 История</span>
+                        <span class="editor-sidebar-toggle">▾</span>
+                    </div>
+                    <div class="editor-sidebar-body">
+                        <div class="history-item">
+                            <div class="history-dot"></div>
+                            <div class="history-info">
+                                <div class="history-desc">Добавлена сцена битвы</div>
+                                <div class="history-time">Сегодня, 14:23</div>
+                            </div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-dot" style="background: var(--accent-purple);"></div>
+                            <div class="history-info">
+                                <div class="history-desc">Правка по замечанию Критика</div>
+                                <div class="history-time">Сегодня, 12:10</div>
+                            </div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-dot" style="background: var(--accent-green);"></div>
+                            <div class="history-info">
+                                <div class="history-desc">Первый черновик раздела</div>
+                                <div class="history-time">Вчера, 22:45</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/editor.js"></script>
+</body>
+</html>

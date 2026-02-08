@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookForge — Дашборд</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <div class="sidebar-logo-icon">📖</div>
+                <div>
+                    <div class="sidebar-logo-text">BookForge</div>
+                    <div class="sidebar-logo-subtitle">AI-Powered Writing</div>
+                </div>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Основное</div>
+                <a href="index.html" class="nav-item active">
+                    <span class="nav-item-icon">🏠</span>
+                    Дашборд
+                </a>
+                <a href="chapters.html" class="nav-item">
+                    <span class="nav-item-icon">📑</span>
+                    Главы и разделы
+                    <span class="nav-item-badge">12</span>
+                </a>
+                <a href="editor.html" class="nav-item">
+                    <span class="nav-item-icon">✏️</span>
+                    Редактор
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Совместная работа</div>
+                <a href="agents.html" class="nav-item">
+                    <span class="nav-item-icon">🤖</span>
+                    Соавторы (ИИ)
+                    <span class="nav-item-badge">5</span>
+                </a>
+                <a href="discussion.html" class="nav-item">
+                    <span class="nav-item-icon">💬</span>
+                    Обсуждения
+                    <span class="nav-item-badge">3</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Планирование</div>
+                <a href="plans.html" class="nav-item">
+                    <span class="nav-item-icon">📋</span>
+                    Планы
+                </a>
+                <a href="ideas.html" class="nav-item">
+                    <span class="nav-item-icon">💡</span>
+                    Идеи и замечания
+                    <span class="nav-item-badge">8</span>
+                </a>
+                <a href="summary.html" class="nav-item">
+                    <span class="nav-item-icon">📝</span>
+                    Саммари
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="book-progress">
+                <div class="book-progress-label">
+                    <span>Прогресс книги</span>
+                    <span>34%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" style="width: 34%"></div>
+                </div>
+            </div>
+            <div class="book-stats-mini">
+                <span>42,350 слов</span>
+                <span>·</span>
+                <span>12 глав</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        <header class="page-header">
+            <div class="page-header-top">
+                <div>
+                    <h1 class="page-title">📊 Дашборд</h1>
+                    <p class="page-subtitle">Обзор проекта «Хроники Нового Мира»</p>
+                </div>
+                <div class="page-actions">
+                    <a href="editor.html" class="btn btn-primary">✏️ Продолжить писать</a>
+                    <button class="btn btn-secondary">⚙️ Настройки</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-body">
+            <!-- Stats Row -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon blue">📝</div>
+                        <span class="stat-card-change up">+1,240</span>
+                    </div>
+                    <div class="stat-card-value">42,350</div>
+                    <div class="stat-card-label">Всего слов</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon green">📑</div>
+                        <span class="stat-card-change up">+1</span>
+                    </div>
+                    <div class="stat-card-value">12</div>
+                    <div class="stat-card-label">Глав написано</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon purple">💬</div>
+                    </div>
+                    <div class="stat-card-value">47</div>
+                    <div class="stat-card-label">Комментариев ИИ</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon orange">💡</div>
+                    </div>
+                    <div class="stat-card-value">18</div>
+                    <div class="stat-card-label">Активных идей</div>
+                </div>
+            </div>
+
+            <!-- Second Row -->
+            <div class="dashboard-three-col">
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🕐 Последние изменения</span>
+                        <a href="chapters.html" class="btn btn-ghost btn-sm">Все →</a>
+                    </div>
+                    <div class="card-body" style="padding: 12px 20px;">
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon edit">✏️</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Отредактирована <strong>Глава 7: Битва за Стену</strong></div>
+                                    <div class="activity-time">15 минут назад</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon comment">💬</div>
+                                <div class="activity-content">
+                                    <div class="activity-title"><strong>Критик</strong> оставил 3 замечания к Главе 6</div>
+                                    <div class="activity-time">1 час назад</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon discussion">🗣️</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Новое обсуждение: <strong>Мотивация антагониста</strong></div>
+                                    <div class="activity-time">2 часа назад</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon idea">💡</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Добавлена идея: <strong>Параллельная сюжетная линия</strong></div>
+                                    <div class="activity-time">3 часа назад</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon edit">✏️</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Написан раздел 6.3: <strong>Диалог у костра</strong></div>
+                                    <div class="activity-time">Вчера</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Active Agents -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🤖 ИИ-Соавторы</span>
+                        <a href="agents.html" class="btn btn-ghost btn-sm">Все →</a>
+                    </div>
+                    <div class="card-body" style="padding: 8px 20px;">
+                        <ul class="agent-mini-list">
+                            <li class="agent-mini-item">
+                                <div class="avatar avatar-sm avatar-editor avatar-online">Р</div>
+                                <div class="agent-mini-info">
+                                    <div class="agent-mini-name">Редактор</div>
+                                    <div class="agent-mini-role">Структура и связность</div>
+                                </div>
+                                <div class="agent-mini-status">● Online</div>
+                            </li>
+                            <li class="agent-mini-item">
+                                <div class="avatar avatar-sm avatar-critic avatar-online">К</div>
+                                <div class="agent-mini-info">
+                                    <div class="agent-mini-name">Критик</div>
+                                    <div class="agent-mini-role">Логика и ошибки</div>
+                                </div>
+                                <div class="agent-mini-status">● Online</div>
+                            </li>
+                            <li class="agent-mini-item">
+                                <div class="avatar avatar-sm avatar-writer avatar-online">П</div>
+                                <div class="agent-mini-info">
+                                    <div class="agent-mini-name">Писатель</div>
+                                    <div class="agent-mini-role">Генерация текста</div>
+                                </div>
+                                <div class="agent-mini-status">● Online</div>
+                            </li>
+                            <li class="agent-mini-item">
+                                <div class="avatar avatar-sm avatar-researcher">И</div>
+                                <div class="agent-mini-info">
+                                    <div class="agent-mini-name">Исследователь</div>
+                                    <div class="agent-mini-role">Факты и контекст</div>
+                                </div>
+                                <span class="agent-mini-status" style="color: var(--text-tertiary)">● Offline</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Row -->
+            <div class="dashboard-two-col">
+                <!-- Chapters Progress -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📑 Прогресс глав</span>
+                    </div>
+                    <div class="card-body" style="padding: 12px 20px;">
+                        <ul class="chapter-progress-list">
+                            <li class="chapter-progress-item">
+                                <div class="chapter-progress-header">
+                                    <div class="chapter-progress-name">
+                                        <span class="badge badge-green">✓</span>
+                                        <a href="chapter-view.html?chapter=1">Глава 1: Начало пути</a>
+                                    </div>
+                                    <span class="chapter-progress-percent">100%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-bar-fill" style="width: 100%; background: var(--accent-green)"></div></div>
+                            </li>
+                            <li class="chapter-progress-item">
+                                <div class="chapter-progress-header">
+                                    <div class="chapter-progress-name">
+                                        <span class="badge badge-green">✓</span>
+                                        <a href="chapter-view.html?chapter=2">Глава 2: Тёмный лес</a>
+                                    </div>
+                                    <span class="chapter-progress-percent">100%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-bar-fill" style="width: 100%; background: var(--accent-green)"></div></div>
+                            </li>
+                            <li class="chapter-progress-item">
+                                <div class="chapter-progress-header">
+                                    <div class="chapter-progress-name">
+                                        <span class="badge badge-blue">✎</span>
+                                        <a href="chapter-view.html?chapter=7">Глава 7: Битва за Стену</a>
+                                    </div>
+                                    <span class="chapter-progress-percent">65%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-bar-fill" style="width: 65%"></div></div>
+                            </li>
+                            <li class="chapter-progress-item">
+                                <div class="chapter-progress-header">
+                                    <div class="chapter-progress-name">
+                                        <span class="badge badge-orange">◑</span>
+                                        <a href="chapter-view.html?chapter=8">Глава 8: Предательство</a>
+                                    </div>
+                                    <span class="chapter-progress-percent">20%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-bar-fill" style="width: 20%; background: var(--accent-orange)"></div></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">⚡ Быстрые действия</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="quick-actions">
+                            <a href="editor.html?chapter=7" class="quick-action-btn">
+                                <span class="quick-action-icon">✏️</span>
+                                <span>Продолжить Главу 7</span>
+                            </a>
+                            <a href="discussion.html?new=true" class="quick-action-btn">
+                                <span class="quick-action-icon">💬</span>
+                                <span>Новое обсуждение</span>
+                            </a>
+                            <a href="ideas.html?add=true" class="quick-action-btn">
+                                <span class="quick-action-icon">💡</span>
+                                <span>Добавить идею</span>
+                            </a>
+                            <a href="summary.html?chapter=7" class="quick-action-btn">
+                                <span class="quick-action-icon">📝</span>
+                                <span>Создать саммари</span>
+                            </a>
+                            <a href="plans.html" class="quick-action-btn">
+                                <span class="quick-action-icon">📋</span>
+                                <span>План книги</span>
+                            </a>
+                            <a href="agents.html?add=true" class="quick-action-btn">
+                                <span class="quick-action-icon">🤖</span>
+                                <span>Добавить агента</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
