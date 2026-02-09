@@ -61,9 +61,13 @@
                             </div>
                             <ul class="tree-sections">
                                 {% for subSection in section.sections %}
-                                    <li><a href="{{ path('section', { 'id': subSection.id })}}" class="tree-section-link">
-                                        {{subSection.title}}</a>
-                                    </li>
+                                 
+                                    <li>
+                                    <a href="{{ path('section', { 'id': subSection.id })}}" class="tree-section-link">
+                                        {{subSection.title}}
+                                        <span class="tree-section-page"><span style="opacity:0.3;">стр.</span> {{subSection.pagesSum}}</span>
+                                    </a>
+                                </li>
                                 {% endfor %}
                                 
                             </ul>
@@ -155,25 +159,33 @@
                         </div>
                         <div class="section-list">
                             {% for subSection in section.sections %}
-                            <div class="section-item">
-                                <div class="section-status-dot done"></div>
-                                <span class="section-num">{{count}}.{{loop.index}}</span>
-                                <div class="section-info">
-                                    <div class="section-title"><a href="{{ path('section', { 'id': subSection.id })}}">
-                                        {{subSection.title}}</a></div>
-                                    <div class="section-meta">
-                                        <span>{{subSection.pages}} страниц</span>
-                                        <span>{{subSection.words}} слов</span>
-                                        <span>{{subSection.simbols}} cимволов</span>
-                                        <span>10 дек 2024</span>
+
+                                <div class="section-item">
+                                    <div class="section-status-dot done"></div>
+                                    <span class="section-num">{{count}}.{{loop.index}}</span>
+                                    <div class="section-info">
+                                        <a href="{{ path('section', { 'id': subSection.id })}}" class="section-title-link">
+                                            <span class="section-title-text">{{subSection.title}}</span>
+                                            <span class="section-meta-inline">
+                                                <span class="section-page">{{subSection.pages}} 📄</span>
+                                                <span class="section-separator">·</span>
+                                                <span class="section-words">{{subSection.words}} слов</span>
+                                                <span class="section-separator">·</span>
+                                                <span class="section-discussions">{{subSection.simbols}} символов</span>
+                                                <span class="section-separator">·</span>
+                                               
+                                                <span class="section-date">10 дек 2024</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="section-actions">
+                                        <a href="editor.html?chapter=1&section=1" class="btn btn-ghost btn-sm">✏️</a>
+                                        <a href="summary.html?chapter=1&section=1" class="btn btn-ghost btn-sm">📝</a>
                                     </div>
                                 </div>
-                                <div class="section-actions">
-                                    <a href="editor.html?chapter=1&section=1" class="btn btn-ghost btn-sm">✏️</a>
-                                    <a href="summary.html?chapter=1&section=1" class="btn btn-ghost btn-sm">📝</a>
-                                </div>
-                            </div>
                             {% endfor %}
+
+                            
                         </div>
                     </div>
                      {% set count = count + 1 %}

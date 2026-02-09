@@ -23,6 +23,18 @@ class DefaultController extends AbstractController
         )->setMaxResults(1000);
         $sections = $query->getResult();
 
+        $symbols = 1;
+        foreach ($sections as $section) {
+            foreach ($section->getSections() as $subsection) {
+                
+                $subsection->pagesSum = ceil($symbols / Section::PER_PAGE);
+                
+                $symbols += $subsection->getSimbols();
+                $subsection->simbolsSum = $symbols;
+
+            }   
+        }
+
         return $this->render('index.html.twig', array(
             'sections' => $sections
         ));

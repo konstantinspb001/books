@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Section
 {
+
+    const PER_PAGE = 2900; //символов на страницу
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -59,6 +62,9 @@ class Section
     private $words;
     private $pages;
     public $html;
+
+    public $simbolsSum = 0;    
+    public $pagesSum = 0;    
 
     public function __construct()
     {
@@ -203,7 +209,7 @@ class Section
     public function getPages(): ?int
     {
         $simbols = $this->getSimbols();
-        $pages = ceil($simbols / 2900);
+        $pages = ceil($simbols / self::PER_PAGE);
 
         return $pages;
     }

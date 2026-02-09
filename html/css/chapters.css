@@ -4,7 +4,7 @@
 
 .chapters-layout {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 25% 1fr;
     gap: 24px;
 }
 
@@ -222,7 +222,7 @@
 .section-item {
     display: flex;
     align-items: center;
-    padding: 10px 24px;
+    padding: 6px 24px;
     border-bottom: 1px solid var(--border-secondary);
     gap: 12px;
     transition: background var(--transition-fast);
@@ -271,7 +271,8 @@
     flex-shrink: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-width: 120px;
+    width: 33%;
+    white-space: normal; 
 }
 
 .section-meta-inline {

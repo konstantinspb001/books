@@ -9,4 +9,7 @@ section:
     controller: App\Controller\SectionController::section     
 section_red:
     path: /section_red/{id}
-    controller: App\Controller\SectionController::edite     
+    controller: App\Controller\SectionController::edite   
+section_save:
+    path: /section_save
+    controller: App\Controller\SectionController::save 

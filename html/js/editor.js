@@ -36,15 +36,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         isSaving = true;
         const content = textarea.value;
+        const sectionId = textarea.id;
 
         // Simulate POST request
-        fetch('/api/save', {
+        fetch('/section_save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 content: content,
+                id: sectionId,
                 timestamp: new Date().toISOString()
             })
         })
