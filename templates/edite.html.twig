@@ -18,7 +18,9 @@
         <header class="page-header">
             <div class="page-header-top">
                 <div>
-                    <h1 class="page-title">✏️  {{section.title}}</h1>
+                    <h1 class="page-title">
+                        <a href="{{ path('section', { 'id': section.id })}}">{{section.title}}</a> > ✏️ редактирование
+                    </h1>
                     {# <p class="page-subtitle">Глава 7, Раздел 2 — Первая волна</p> #}
                 </div>
                 <div class="page-actions">

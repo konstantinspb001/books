@@ -17,7 +17,8 @@ class DefaultController extends AbstractController
     public function index()
     {
         $em = $this->getDoctrine()->getManager();
-    	
+    	$action = $_GET['action'] ?? null;   
+
         $query = $em->createQuery(
             'SELECT s FROM App:Section s WHERE s.parent IS NULL ORDER BY s.sort DESC'
         )->setMaxResults(1000);
@@ -34,6 +35,29 @@ class DefaultController extends AbstractController
 
             }   
         }
+
+        //Вывод всей книги
+        if($action == 'book') {
+            $book = '#Сетевая диаспора'."\n";
+            foreach ($sections as $section) {
+                $book .= '##'.$section->getTitle()."\n";
+                foreach ($section->getSections() as $subsection) {
+                    $book .= '###'.$subsection->getTitle()."\n";
+                    $book .= $subsection->getText()."\n"; 
+
+                }   
+            }; 
+            echo '<textarea style="width:100%; height:100%;">'.$book.'</textarea>'; die();           
+        };
+
+        //Саммари
+        if($action == 'sammari') {
+            $sammari = file_get_contents('sammari.txt');
+            echo '<textarea style="width:100%; height:100%;">'.$sammari.'</textarea>'; die();           
+        };        
+
+
+
 
         return $this->render('index.html.twig', array(
             'sections' => $sections

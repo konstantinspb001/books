@@ -14,6 +14,7 @@
 
     <!-- MAIN CONTENT -->
     <main class="main-content">
+        {# 
         <header class="page-header">
             <div class="page-header-top">
                 <div>
@@ -23,34 +24,48 @@
                         {% endif %}
                             {{section.title}}
                     </h1>
-                    {# <p class="page-subtitle">Раздел 7.2 — {{section.title}}</p> #}
+                   
                 </div>
                 <div class="page-actions">
-                    <a href="{{ path('section_red', { 'id': section.id })}}" class="btn btn-primary">✏️ Редактировать</a>
                     <a href="summary.html?chapter=7" class="btn btn-secondary">📝 Саммари</a>
                     <a href="discussion.html?chapter=7" class="btn btn-secondary">💬 Обсуждение</a>
                 </div>
             </div>
         </header>
+        #}
 
         <div class="chapter-view-layout">
+
+
             <!-- Text Area -->
             <div class="chapter-text-area">
+
+
                 <div class="chapter-meta">
                     {# <div class="chapter-meta-num">Глава 7 · Раздел 2</div> #}
                     <h2 class="chapter-meta-title">{{section.title}}</h2>
+
+                
                     <div class="chapter-meta-info">
+                    {% if section.sections|length > 0 %}    
+                        <span class="chapter-meta-item">📊 {{section.sections|length}}  разделов</span>
+                    {% else %}   
+                        <span class="chapter-meta-item">
+                            <a href="/section_red/{{section.id}}" class="btn btn-primary" style="padding: 3px 10px 3px 6px;font-size: 11px;">
+                                ✏️ Редактировать
+                            </a>
+                        </span>
                         <span class="chapter-meta-item">📊 {{section.words}}  слов</span>
                         <span class="chapter-meta-item">🔤 {{section.simbols}} символов</span>
                         <span class="chapter-meta-item">📅 Сегодня, 14:23</span>
                         {# <span class="chapter-meta-item"><span class="badge badge-blue">Черновик</span></span> #}
+                    {% endif %}
                     </div>
+                   
                 </div>
 
                 <div class="book-text">
-                   
                     {{html|raw}}
-
                 </div>
 
                 <!-- Chapter Navigation -->

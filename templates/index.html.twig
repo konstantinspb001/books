@@ -24,7 +24,9 @@
                 </div>
                 <div class="page-actions">
                     <button class="btn btn-primary">+ Новая глава</button>
-                    <button class="btn btn-secondary">⟳ Обновить саммари</button>
+                    <a href="/?action=book" target="_blank" class="btn btn-secondary">📒 Вся книга</a>
+                    <a href="/?action=sammari" target="_blank" class="btn btn-secondary">📄 Саммари</a>
+                    {# <button class="btn btn-secondary">⟳ Обновить саммари</button> #}
                 </div>
             </div>
         </header>
@@ -125,7 +127,7 @@
                             <div class="chapter-card-info">
                                 {# <div class="chapter-card-num">Глава 1</div> #}
                                 <h2 class="chapter-card-title">
-                                    <a href="">{{section.title}}</a>
+                                    <a href="{{ path('section', { 'id': section.id })}}">{{section.title}}</a>
                                 </h2>
                                 {# <p class="chapter-card-desc">Главный герой просыпается в незнакомом мире и обнаруживает свои способности. Первые шаги в новой реальности...</p> #}
                             </div>

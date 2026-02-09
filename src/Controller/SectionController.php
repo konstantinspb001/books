@@ -19,11 +19,37 @@ class SectionController extends AbstractController
 
     public function section($id, Markdown $markdownService)
     {
-
+        $em = $this->getDoctrine()->getManager();
         $sectionRepository = $this->getDoctrine() ->getRepository(Section::class);
         $section = $sectionRepository ->findOneBy(['id' => $id]);
     	
-        $html = $markdownService->toHtml($section->getText());
+        if(sizeof($section->getSections()) > 0) {
+            $markdown = '';
+            foreach ($section->getSections() as $subSection) {
+                $title = str_replace("\n", '', $subSection->getTitle());
+                $markdown .= '#'.$title.'<a href="/section_red/'.$subSection->getId().'" style="font-size:21px;"> ✏️ </a>'."\n";
+
+                //Один раз правим markdown
+                /*
+                $text = $subSection->getText();                
+                $text = str_replace("\n", "\n\n", $text);
+                $text = str_replace("|\n", "|", $text);
+                $text = str_replace("\n\n\n", "\n\n", $text);   
+                $subSection->setText($text);          
+                $em->flush();
+                /**/   
+
+                $markdown .= $subSection->getText()."\n";
+            }
+
+
+            $html = $markdownService->toHtml($markdown);   
+        } else {
+            $html = $markdownService->toHtml($section->getText());    
+        }
+
+
+        
 
         return $this->render('section.html.twig', array(
             'section' => $section,

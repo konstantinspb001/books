@@ -360,6 +360,7 @@
     margin-top: 48px;
     padding-top: 24px;
     border-top: 1px solid var(--border-primary);
+    padding-bottom: 90px;
 }
 
 .chapter-nav-item {
