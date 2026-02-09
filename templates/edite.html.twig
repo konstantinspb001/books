@@ -18,15 +18,15 @@
         <header class="page-header">
             <div class="page-header-top">
                 <div>
-                    <h1 class="page-title">✏️ Редактор</h1>
-                    <p class="page-subtitle">Глава 7, Раздел 2 — Первая волна</p>
+                    <h1 class="page-title">✏️  {{section.title}}</h1>
+                    {# <p class="page-subtitle">Глава 7, Раздел 2 — Первая волна</p> #}
                 </div>
                 <div class="page-actions">
                     <div class="autosave-indicator">
                         <span class="autosave-dot"></span>
                         Автосохранение
                     </div>
-                    <a href="chapter-view.html?chapter=7&section=2" class="btn btn-secondary">👁️ Просмотр</a>
+                    <a href="{{ path('section', { 'id': section.id })}}" class="btn btn-secondary">👁️ Просмотр</a>
                     <button class="btn btn-success">💾 Сохранить</button>
                 </div>
             </div>

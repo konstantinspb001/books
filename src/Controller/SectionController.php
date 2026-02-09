@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Section;
-
+use App\Service\Markdown;
 
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,15 +17,17 @@ class SectionController extends AbstractController
 {
     
 
-    public function section($id)
+    public function section($id, Markdown $markdownService)
     {
 
-        $sectionRepository = $this->getDoctrine() ->getRepository('App:Section');
+        $sectionRepository = $this->getDoctrine() ->getRepository(Section::class);
         $section = $sectionRepository ->findOneBy(['id' => $id]);
     	
+        $html = $markdownService->toHtml($section->getText());
 
         return $this->render('section.html.twig', array(
-            'section' => $section
+            'section' => $section,
+            'html' => $html,
         ));
 
 
@@ -36,7 +38,7 @@ class SectionController extends AbstractController
     public function edite($id)
     {
 
-        $sectionRepository = $this->getDoctrine() ->getRepository('App:Section');
+        $sectionRepository = $this->getDoctrine() ->getRepository(Section::class);
         $section = $sectionRepository ->findOneBy(['id' => $id]);
         
 

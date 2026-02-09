@@ -51,20 +51,24 @@
                     </div>
                     <ul class="tree-list">
 
+                        {% set count = 1 %}
                         {% for section in sections %}
                         <li class="tree-chapter">
                             <div class="tree-chapter-header active">
                                 <span class="tree-toggle expanded">▶</span>
-                                <span class="tree-chapter-num">1</span>
+                                <span class="tree-chapter-num">{{count}}</span>
                                 {{section.title}}
                             </div>
                             <ul class="tree-sections">
                                 {% for subSection in section.sections %}
-                                    <li><a href="{{ path('section', { 'id': subSection.id })}}" class="tree-section-link">{{subSection.title}}</a></li>
+                                    <li><a href="{{ path('section', { 'id': subSection.id })}}" class="tree-section-link">
+                                        {{subSection.title}}</a>
+                                    </li>
                                 {% endfor %}
                                 
                             </ul>
                         </li>
+                        {% set count = count + 1 %}
                         {% endfor %}
 
                         {# 
@@ -105,17 +109,21 @@
                 </div>
 
                 <!-- Chapters Cards -->
-                <div class="chapters-content">
-
+                <div class="chapters-content" style="margin-bottom: 100px;">
+                    
+                    {% set count = 1 %}
+                    {% for section in sections %}
                     <!-- Chapter 1 -->
                     <div class="chapter-card">
+
+                       
                         <div class="chapter-card-header">
                             <div class="chapter-card-info">
-                                <div class="chapter-card-num">Глава 1</div>
+                                {# <div class="chapter-card-num">Глава 1</div> #}
                                 <h2 class="chapter-card-title">
-                                    <a href="chapter-view.html?chapter=1">Начало пути</a>
+                                    <a href="">{{section.title}}</a>
                                 </h2>
-                                <p class="chapter-card-desc">Главный герой просыпается в незнакомом мире и обнаруживает свои способности. Первые шаги в новой реальности...</p>
+                                {# <p class="chapter-card-desc">Главный герой просыпается в незнакомом мире и обнаруживает свои способности. Первые шаги в новой реальности...</p> #}
                             </div>
                             <div class="chapter-card-actions">
                                 <a href="editor.html?chapter=1" class="btn btn-secondary btn-sm">✏️ Редактировать</a>
@@ -124,29 +132,39 @@
                         </div>
                         <div class="chapter-stats">
                             <div class="chapter-stat">
-                                <span class="chapter-stat-icon">📊</span>
-                                Слов: <span class="chapter-stat-value">5,240</span>
+                                <span class="chapter-stat-icon">📄</span>
+                                Страниц: <span class="chapter-stat-value">{{section.pages}}</span>
+                            </div>
+                            <div class="chapter-stat">
+                                <span class="chapter-stat-icon">💭</span>
+                                Слов: <span class="chapter-stat-value">{{section.words}}</span>
                             </div>
                             <div class="chapter-stat">
                                 <span class="chapter-stat-icon">🔤</span>
-                                Символов: <span class="chapter-stat-value">31,440</span>
+                                Символов: <span class="chapter-stat-value">{{section.simbols}}</span>
                             </div>
                             <div class="chapter-stat">
                                 <span class="chapter-stat-icon">📅</span>
                                 Изменено: <span class="chapter-stat-value">12 дек 2024</span>
                             </div>
+                            {# 
                             <div class="chapter-stat">
                                 <span class="badge badge-green">✅ Завершена</span>
-                            </div>
+                            </div> 
+                            #}
                         </div>
                         <div class="section-list">
+                            {% for subSection in section.sections %}
                             <div class="section-item">
                                 <div class="section-status-dot done"></div>
-                                <span class="section-num">1.1</span>
+                                <span class="section-num">{{count}}.{{loop.index}}</span>
                                 <div class="section-info">
-                                    <div class="section-title"><a href="chapter-view.html?chapter=1&section=1">Пробуждение</a></div>
+                                    <div class="section-title"><a href="{{ path('section', { 'id': subSection.id })}}">
+                                        {{subSection.title}}</a></div>
                                     <div class="section-meta">
-                                        <span>1,820 слов</span>
+                                        <span>{{subSection.pages}} страниц</span>
+                                        <span>{{subSection.words}} слов</span>
+                                        <span>{{subSection.simbols}} cимволов</span>
                                         <span>10 дек 2024</span>
                                     </div>
                                 </div>
@@ -155,138 +173,13 @@
                                     <a href="summary.html?chapter=1&section=1" class="btn btn-ghost btn-sm">📝</a>
                                 </div>
                             </div>
-                            <div class="section-item">
-                                <div class="section-status-dot done"></div>
-                                <span class="section-num">1.2</span>
-                                <div class="section-info">
-                                    <div class="section-title"><a href="chapter-view.html?chapter=1&section=2">Деревня у реки</a></div>
-                                    <div class="section-meta">
-                                        <span>2,100 слов</span>
-                                        <span>11 дек 2024</span>
-                                    </div>
-                                </div>
-                                <div class="section-actions">
-                                    <a href="editor.html?chapter=1&section=2" class="btn btn-ghost btn-sm">✏️</a>
-                                    <a href="summary.html?chapter=1&section=2" class="btn btn-ghost btn-sm">📝</a>
-                                </div>
-                            </div>
-                            <div class="section-item">
-                                <div class="section-status-dot done"></div>
-                                <span class="section-num">1.3</span>
-                                <div class="section-info">
-                                    <div class="section-title"><a href="chapter-view.html?chapter=1&section=3">Первый знак</a></div>
-                                    <div class="section-meta">
-                                        <span>1,320 слов</span>
-                                        <span>12 дек 2024</span>
-                                    </div>
-                                </div>
-                                <div class="section-actions">
-                                    <a href="editor.html?chapter=1&section=3" class="btn btn-ghost btn-sm">✏️</a>
-                                    <a href="summary.html?chapter=1&section=3" class="btn btn-ghost btn-sm">📝</a>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
+                     {% set count = count + 1 %}
+                    {% endfor %}
 
-                    <!-- Chapter 7 — in progress -->
-                    <div class="chapter-card">
-                        <div class="chapter-card-header">
-                            <div class="chapter-card-info">
-                                <div class="chapter-card-num">Глава 7</div>
-                                <h2 class="chapter-card-title">
-                                    <a href="chapter-view.html?chapter=7">Битва за Стену</a>
-                                </h2>
-                                <p class="chapter-card-desc">Масштабное сражение у границы. Герои вынуждены принять решение, которое изменит ход войны навсегда.</p>
-                            </div>
-                            <div class="chapter-card-actions">
-                                <a href="editor.html?chapter=7" class="btn btn-primary btn-sm">✏️ Продолжить</a>
-                                <a href="summary.html?chapter=7" class="btn btn-ghost btn-sm">📝 Саммари</a>
-                                <a href="discussion.html?chapter=7" class="btn btn-ghost btn-sm">💬</a>
-                            </div>
-                        </div>
-                        <div class="chapter-stats">
-                            <div class="chapter-stat">
-                                <span class="chapter-stat-icon">📊</span>
-                                Слов: <span class="chapter-stat-value">3,410</span>
-                            </div>
-                            <div class="chapter-stat">
-                                <span class="chapter-stat-icon">🔤</span>
-                                Символов: <span class="chapter-stat-value">20,460</span>
-                            </div>
-                            <div class="chapter-stat">
-                                <span class="chapter-stat-icon">📅</span>
-                                Изменено: <span class="chapter-stat-value">Сегодня, 14:23</span>
-                            </div>
-                            <div class="chapter-stat">
-                                <span class="badge badge-blue">✏️ Черновик — 65%</span>
-                            </div>
-                        </div>
-                        <div class="section-list">
-                            <div class="section-item">
-                                <div class="section-status-dot done"></div>
-                                <span class="section-num">7.1</span>
-                                <div class="section-info">
-                                    <div class="section-title"><a href="chapter-view.html?chapter=7&section=1">Рассвет перед боем</a></div>
-                                    <div class="section-meta"><span>1,540 слов</span><span>Вчера</span></div>
-                                </div>
-                                <div class="section-actions">
-                                    <a href="editor.html?chapter=7&section=1" class="btn btn-ghost btn-sm">✏️</a>
-                                </div>
-                            </div>
-                            <div class="section-item">
-                                <div class="section-status-dot draft"></div>
-                                <span class="section-num">7.2</span>
-                                <div class="section-info">
-                                    <div class="section-title"><a href="chapter-view.html?chapter=7&section=2">Первая волна</a></div>
-                                    <div class="section-meta"><span>1,870 слов</span><span>Сегодня</span></div>
-                                </div>
-                                <div class="section-actions">
-                                    <a href="editor.html?chapter=7&section=2" class="btn btn-ghost btn-sm">✏️</a>
-                                </div>
-                            </div>
-                            <div class="section-item">
-                                <div class="section-status-dot todo"></div>
-                                <span class="section-num">7.3</span>
-                                <div class="section-info">
-                                    <div class="section-title"><a href="#">Решение командира</a></div>
-                                    <div class="section-meta"><span>Не начат</span></div>
-                                </div>
-                                <div class="section-actions">
-                                    <a href="editor.html?chapter=7&section=3" class="btn btn-ghost btn-sm">✏️</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Chapter 8 — early draft -->
-                    <div class="chapter-card">
-                        <div class="chapter-card-header">
-                            <div class="chapter-card-info">
-                                <div class="chapter-card-num">Глава 8</div>
-                                <h2 class="chapter-card-title">
-                                    <a href="chapter-view.html?chapter=8">Предательство</a>
-                                </h2>
-                                <p class="chapter-card-desc">Неожиданный поворот: союзник оказывается врагом. Последствия для группы катастрофические.</p>
-                            </div>
-                            <div class="chapter-card-actions">
-                                <a href="editor.html?chapter=8" class="btn btn-secondary btn-sm">✏️ Начать</a>
-                                <a href="discussion.html?chapter=8" class="btn btn-ghost btn-sm">💬</a>
-                            </div>
-                        </div>
-                        <div class="chapter-stats">
-                            <div class="chapter-stat">
-                                <span class="chapter-stat-icon">📊</span>
-                                Слов: <span class="chapter-stat-value">980</span>
-                            </div>
-                            <div class="chapter-stat">
-                                <span class="chapter-stat-icon">📅</span>
-                                Изменено: <span class="chapter-stat-value">10 дек 2024</span>
-                            </div>
-                            <div class="chapter-stat">
-                                <span class="badge badge-orange">◑ Ранний черновик — 20%</span>
-                            </div>
-                        </div>
-                    </div>
+           
                 </div>
             </div>
         </div>

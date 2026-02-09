@@ -94,7 +94,7 @@
 
 .editor-textarea {
     width: 100%;
-    min-height: 600px;
+    height: 100%;
     background: transparent;
     border: none;
     color: var(--text-primary);
@@ -365,7 +365,7 @@
 .save-button-container {
     display: flex;
     justify-content: center;
-    margin-top: 24px;
+    margin-bottom: 124px;
 }
 
 .save-button {

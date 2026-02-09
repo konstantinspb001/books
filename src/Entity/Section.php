@@ -57,6 +57,8 @@ class Section
 
     private $simbols;
     private $words;
+    private $pages;
+    public $html;
 
     public function __construct()
     {
@@ -174,21 +176,36 @@ class Section
 
     public function getSimbols(): ?int
     {
-        if(!$this->text) return 0;
-        $length = mb_strlen($this->text, 'UTF-8');
+        $length = 0;
+        if($this->text) $length = mb_strlen($this->text, 'UTF-8');
+        foreach ($this->sections as $subsection) {
+            $length += $subsection->getSimbols();
+        }
 
         return $length;
     }
 
     public function getWords(): ?int
     {
-        if(!$this->text) return 0;
-        $clean = preg_replace('/[[:punct:]]+/u', ' ', $this->text);
-        $words = preg_split('/\s+/u', trim($clean));
+        $words = [];
+        if($this->text) {
+            $clean = preg_replace('/[[:punct:]]+/u', ' ', $this->text);
+            $words = preg_split('/\s+/u', trim($clean));            
+        }
+        $wordsNum = sizeof($words);
+        foreach ($this->sections as $subsection) {
+            $wordsNum += $subsection->getWords();
+        }
 
-        return sizeof($words);
+        return $wordsNum;
     }
 
+    public function getPages(): ?int
+    {
+        $simbols = $this->getSimbols();
+        $pages = ceil($simbols / 2900);
 
+        return $pages;
+    }
 
 }
