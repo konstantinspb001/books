@@ -160,7 +160,7 @@
                         <div class="section-list">
                             {% for subSection in section.sections %}
 
-                                <div class="section-item">
+                                <div class="section-item" style="{% if subSection.words < 2 %}background: #dcfce7;{% endif %}">
                                     <div class="section-status-dot done"></div>
                                     <span class="section-num">{{count}}.{{loop.index}}</span>
                                     <div class="section-info">
