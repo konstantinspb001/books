@@ -53,11 +53,19 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             isSaving = false;
-            if (showSuccess) {
-                statusSaved.innerHTML = '✓ Сохранено в ' + new Date().toLocaleTimeString();
+            const message = (data && data.message) || (data && data.status === 'success' ? 'Сохранено' : 'Ошибка сохранения');
+
+            if (data && data.status === 'success') {
+                // показываем в статус-баре текст из ответа + время
+                const time = new Date().toLocaleTimeString();
+                statusSaved.innerHTML = `✓ ${message} в ${time}`;
                 statusSaved.style.color = 'var(--accent-green)';
+
+                showToast(message, 'success');
             } else {
-                statusSaved.innerHTML = '<span class="autosave-dot"></span> Автосохранение';
+                statusSaved.innerHTML = `✗ ${message}`;
+                statusSaved.style.color = 'var(--accent-red)';
+                showToast(message, 'error');
             }
         })
         .catch(error => {
@@ -65,7 +73,84 @@ document.addEventListener('DOMContentLoaded', function() {
             statusSaved.innerHTML = '✗ Ошибка сохранения';
             statusSaved.style.color = 'var(--accent-red)';
             console.error('Error saving content:', error);
+            showToast('Ошибка сохранения', 'error');
         });
+    }
+
+    // Simple toast notification (under the bottom "Сохранить" button)
+    function showToast(message, type = 'success') {
+        const bottomSaveButton = document.querySelector('.save-button');
+        if (!bottomSaveButton) {
+            // fallback — если по какой-то причине нет нижней кнопки, показываем как тост сверху экрана
+            const fallback = document.createElement('div');
+            fallback.textContent = message;
+            fallback.style.position = 'fixed';
+            fallback.style.top = '20px';
+            fallback.style.right = '20px';
+            fallback.style.zIndex = '9999';
+            fallback.style.padding = '10px 16px';
+            fallback.style.borderRadius = '6px';
+            fallback.style.fontSize = '14px';
+            fallback.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            fallback.style.backgroundColor = type === 'success' ? 'var(--accent-green, #16a34a)' : 'var(--accent-red, #dc2626)';
+            fallback.style.color = '#fff';
+            fallback.style.opacity = '0';
+            fallback.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+            fallback.style.transform = 'translateY(-10px)';
+            document.body.appendChild(fallback);
+            requestAnimationFrame(() => {
+                fallback.style.opacity = '1';
+                fallback.style.transform = 'translateY(0)';
+            });
+            setTimeout(() => {
+                fallback.style.opacity = '0';
+                fallback.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    if (fallback.parentNode) {
+                        fallback.parentNode.removeChild(fallback);
+                    }
+                }, 200);
+            }, 3000);
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.style.width = '100%';
+        container.style.marginTop = '8px';
+
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.maxWidth = '960px';
+        toast.style.width = '100%';
+        toast.style.padding = '12px 18px';
+        toast.style.borderRadius = '8px';
+        toast.style.fontSize = '14px';
+        toast.style.boxShadow = '0 8px 24px rgba(0,0,0,0.18)';
+        toast.style.backgroundColor = type === 'success' ? 'var(--accent-green, #16a34a)' : 'var(--accent-red, #dc2626)';
+        toast.style.color = '#fff';
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        toast.style.transform = 'translateY(-10px)';
+
+        container.appendChild(toast);
+        bottomSaveButton.parentNode.parentNode.insertBefore(container, bottomSaveButton.parentNode.nextSibling);
+
+        // Trigger animation
+        requestAnimationFrame(() => {
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+        });
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                if (container.parentNode) {
+                    container.parentNode.removeChild(container);
+                }
+            }, 200);
+        }, 3000);
     }
 
     // Toolbar button functionality

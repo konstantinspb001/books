@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Section;
 
 use App\Repository\SectionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=SectionRepository::class)
@@ -64,11 +65,17 @@ class Section
     public $html;
 
     public $simbolsSum = 0;    
-    public $pagesSum = 0;    
+    public $pagesSum = 0;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SectionArchive::class, mappedBy="section")
+     */
+    private $sectionArchives;    
 
     public function __construct()
     {
         $this->sections = new ArrayCollection();
+        $this->sectionArchives = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,8 +119,10 @@ class Section
         return $this;
     }
 
-    public function getChangetAt(): ?\DateTimeInterface
+    public function getChangetAt($format = false)
     {
+        if($format && $this->changetAt) return $this->formatDateTime($this->changetAt);
+
         return $this->changetAt;
     }
 
@@ -212,6 +221,56 @@ class Section
         $pages = ceil($simbols / self::PER_PAGE);
 
         return $pages;
+    }
+
+    public function formatDateTime(DateTime $dt): string {
+        $now = new DateTime();
+        $today = $now->format('Y-m-d');
+        $dtStr = $dt->format('Y-m-d');
+        $time = $dt->format('H:i');
+        
+        if ($dtStr === $today) {
+            return "Сегодня, $time";
+        }
+        
+        $yesterday = $now->modify('-1 day')->format('Y-m-d');
+        $now->modify('+1 day'); // Восстанавливаем $now
+        
+        if ($dtStr === $yesterday) {
+            return "Вчера, $time";
+        }
+        
+        return $dt->format('d') . ' ' . $dt::createFromFormat('!n', $dt->format('n'))->format('F') . ' ' . $dt->format('Y');
+    }
+
+    /**
+     * @return Collection<int, SectionArchive>
+     */
+    public function getSectionArchives(): Collection
+    {
+        return $this->sectionArchives;
+    }
+
+    public function addSectionArchive(SectionArchive $sectionArchive): self
+    {
+        if (!$this->sectionArchives->contains($sectionArchive)) {
+            $this->sectionArchives[] = $sectionArchive;
+            $sectionArchive->setSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSectionArchive(SectionArchive $sectionArchive): self
+    {
+        if ($this->sectionArchives->removeElement($sectionArchive)) {
+            // set the owning side to null (unless already changed)
+            if ($sectionArchive->getSection() === $this) {
+                $sectionArchive->setSection(null);
+            }
+        }
+
+        return $this;
     }
 
 }

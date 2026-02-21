@@ -43,29 +43,53 @@
 
                 <div class="chapter-meta">
                     {# <div class="chapter-meta-num">Глава 7 · Раздел 2</div> #}
-                    <h2 class="chapter-meta-title">{{section.title}}</h2>
+                    <h2 class="chapter-meta-title">
+                        {{section.title}}
+                        {% if archive %} [архив] {% endif %}
+                        {% if ideasLink %} [💡] {% endif %}
+                    </h2>
 
                 
                     <div class="chapter-meta-info">
                     {% if section.sections|length > 0 %}    
                         <span class="chapter-meta-item">📊 {{section.sections|length}}  разделов</span>
                     {% else %}   
+
                         <span class="chapter-meta-item">
+                            {% if archive %}
+                                <div class="chapter-card-actions">
+                                    <a href="?archive=0" class="btn btn-secondary btn-sm">Книга</a> > 
+                                    <a href="?archive_date={{archive.date}}" class="btn btn-secondary btn-sm">Архив от: {{archive.date}}</a>
+                                </div>
+                            {% elseif ideasLink %}    
+                                <div class="chapter-card-actions">
+                                    <a href="?archive=0" class="btn btn-secondary btn-sm">Книга</a> > 
+                                    <a href="?ideas=1" class="btn btn-secondary btn-sm">идеи</a>
+                                </div>
+                            {% else %}    
                             <a href="/section_red/{{section.id}}" class="btn btn-primary" style="padding: 3px 10px 3px 6px;font-size: 11px;">
                                 ✏️ Редактировать
-                            </a>
+                            </a> / 
+                            <a href="?ideas=1" class="btn btn-secondary btn-sm">💡 Идеи для раздела</a>
+                            {% endif %}
                         </span>
-                        <span class="chapter-meta-item">📊 {{section.words}}  слов</span>
+                        <span class="chapter-meta-item" style="padding-left:100px;">📊 {{section.words}}  слов</span>
                         <span class="chapter-meta-item">🔤 {{section.simbols}} символов</span>
-                        <span class="chapter-meta-item">📅 Сегодня, 14:23</span>
+                        {% if section.changetAt %}
+                        <span class="chapter-meta-item">📅 {{section.changetAt(true)}}</span>
+
+                        {% endif %}
                         {# <span class="chapter-meta-item"><span class="badge badge-blue">Черновик</span></span> #}
                     {% endif %}
                     </div>
                    
                 </div>
 
-                <div class="book-text">
-                    {{html|raw}}
+                <div class="book-text" style="{% if archive %} background-color: #f8f9fa; {% endif %}">
+                    {% if ideasLink %}
+                       <p style="background-color: #f1f3f4;">файл с идеями: <a href="{{ideasLink}}" target="_blank">{{ideasLink}}</a><p>
+                    {% endif %}    
+                         {{html|raw}}
                 </div>
 
                 <!-- Chapter Navigation -->
@@ -85,37 +109,27 @@
             <!-- Comments Sidebar -->
             <div class="comments-sidebar">
 
-
+                {% if archives %}
                 <div class="editor-sidebar-section">
                     <div class="editor-sidebar-header">
                         <span class="editor-sidebar-title">🕐 История</span>
                         <span class="editor-sidebar-toggle">▾</span>
                     </div>
+
                     <div class="editor-sidebar-body">
+                        {% for archive in archives %}
                         <div class="history-item">
                             <div class="history-dot"></div>
                             <div class="history-info">
-                                <div class="history-desc">Добавлена сцена битвы</div>
-                                <div class="history-time">Сегодня, 14:23</div>
+                                <div class=""><a href="?archive_date={{archive.date}}">Архив от: {{archive.date}}</a></div
+                                
                             </div>
                         </div>
-                        <div class="history-item">
-                            <div class="history-dot" style="background: var(--accent-purple);"></div>
-                            <div class="history-info">
-                                <div class="history-desc">Правка по замечанию Критика</div>
-                                <div class="history-time">Сегодня, 12:10</div>
-                            </div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-dot" style="background: var(--accent-green);"></div>
-                            <div class="history-info">
-                                <div class="history-desc">Первый черновик раздела</div>
-                                <div class="history-time">Вчера, 22:45</div>
-                            </div>
-                        </div>
+                        {% endfor %}
+                        
                     </div>
                 </div>
-
+                {% endif %}
                 
                 <div class="comments-sidebar-header">
                     <div class="comments-sidebar-title">

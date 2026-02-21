@@ -132,8 +132,8 @@
                                 {# <p class="chapter-card-desc">Главный герой просыпается в незнакомом мире и обнаруживает свои способности. Первые шаги в новой реальности...</p> #}
                             </div>
                             <div class="chapter-card-actions">
-                                <a href="editor.html?chapter=1" class="btn btn-secondary btn-sm">✏️ Редактировать</a>
-                                <a href="summary.html?chapter=1" class="btn btn-ghost btn-sm">📝 Саммари</a>
+                                <a href="?markdown={{section.id}}" class="btn btn-secondary btn-sm" target="_blank">📖 Markdown</a>
+                                {# <a href="?section={{section.id}}" class="btn btn-ghost btn-sm" target="_blank">📝 Саммари</a> #}
                             </div>
                         </div>
                         <div class="chapter-stats">
@@ -149,10 +149,12 @@
                                 <span class="chapter-stat-icon">🔤</span>
                                 Символов: <span class="chapter-stat-value">{{section.simbols}}</span>
                             </div>
+                            {# 
                             <div class="chapter-stat">
                                 <span class="chapter-stat-icon">📅</span>
                                 Изменено: <span class="chapter-stat-value">12 дек 2024</span>
                             </div>
+                            #}
                             {# 
                             <div class="chapter-stat">
                                 <span class="badge badge-green">✅ Завершена</span>
@@ -163,7 +165,7 @@
                             {% for subSection in section.sections %}
 
                                 <div class="section-item" style="{% if subSection.words < 2 %}background: #dcfce7;{% endif %}">
-                                    <div class="section-status-dot done"></div>
+                                    {# <div class="section-status-dot done"></div> #}
                                     <span class="section-num">{{count}}.{{loop.index}}</span>
                                     <div class="section-info">
                                         <a href="{{ path('section', { 'id': subSection.id })}}" class="section-title-link">
@@ -176,13 +178,13 @@
                                                 <span class="section-discussions">{{subSection.simbols}} символов</span>
                                                 <span class="section-separator">·</span>
                                                
-                                                <span class="section-date">10 дек 2024</span>
+                                                <span class="section-date">{{subSection.changetAt(true)}}</span>
                                             </span>
                                         </a>
                                     </div>
                                     <div class="section-actions">
-                                        <a href="editor.html?chapter=1&section=1" class="btn btn-ghost btn-sm">✏️</a>
-                                        <a href="summary.html?chapter=1&section=1" class="btn btn-ghost btn-sm">📝</a>
+                                        <a href="{{ path('section_red', { 'id': subSection.id })}}" class="btn btn-ghost btn-sm">✏️</a>
+                                        {# <a href="summary.html?chapter=1&section=1" class="btn btn-ghost btn-sm">📝</a>#}
                                     </div>
                                 </div>
                             {% endfor %}

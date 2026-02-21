@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use App\Entity\Section;
+use App\Entity\Section\Section;
 
 class DefaultController extends AbstractController
 {
@@ -20,7 +20,7 @@ class DefaultController extends AbstractController
     	$action = $_GET['action'] ?? null;   
 
         $query = $em->createQuery(
-            'SELECT s FROM App:Section s WHERE s.parent IS NULL ORDER BY s.sort DESC'
+            'SELECT s FROM App\Entity\Section\Section s WHERE s.parent IS NULL ORDER BY s.sort DESC'
         )->setMaxResults(1000);
         $sections = $query->getResult();
 
@@ -55,7 +55,18 @@ class DefaultController extends AbstractController
             $sammari = file_get_contents('sammari.txt');
             echo '<textarea style="width:100%; height:100%;">'.$sammari.'</textarea>'; die();           
         };        
-
+        //markdown
+        if(isset($_GET['markdown'])) {
+            $id = $_GET['markdown'];
+            $section = $this->getDoctrine()->getRepository(Section::class)->findOneBy(['id' => $id]);
+            $markdown = '#'.$section->getTitle()."\n";
+            foreach ($section->getSections() as $subsection) {
+                $markdown .= '##'.$subsection->getTitle()."\n";
+                $markdown .= $subsection->getText()."\n"; 
+            }   
+       
+            echo '<textarea style="width:100%; height:100%;">'.$markdown.'</textarea>'; die();           
+        }; 
 
 
 
