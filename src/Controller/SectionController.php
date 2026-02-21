@@ -8,7 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Section\Section;
 use App\Entity\Section\SectionArchive;
+use App\Entity\Section\SectionRecommendation;
 use App\Service\Markdown;
+
 
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,7 +27,9 @@ class SectionController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $sectionRepository = $this->getDoctrine() ->getRepository(Section::class);
         $section = $sectionRepository ->findOneBy(['id' => $id]);
+        $date = date('d.m.Y');
     	$markdown = '';
+        $filesystem = new Filesystem();
 
         if(sizeof($section->getSections()) > 0) {
   
@@ -75,7 +79,6 @@ class SectionController extends AbstractController
         if($ideas) {
             $ideasLink = '/data/sections_ideas/'.$id . '.txt';
             $markdown = '';
-            $filesystem = new Filesystem();
             $sectionDir = $this->getParameter('kernel.project_dir') . '/public/data/sections_ideas';
             $filePath = $sectionDir . '/' . $id . '.txt';
             if ($filesystem->exists($filePath)) {
@@ -84,11 +87,26 @@ class SectionController extends AbstractController
                 $filesystem->dumpFile($filePath, '');
                 $markdown = '';
             }
-            
-            
+             
         }
 
-
+        $recommendations = $this->getDoctrine()->getRepository(SectionRecommendation::class)->findBy(
+            ['section' => $id],
+            ['id' => 'DESC']
+        );
+        foreach ($recommendations as $recommendation) {
+            $recId = $recommendation->getId();
+            if(!$recommendation->getDate()) {
+                $recommendation->setDate($date);
+                $em->flush();
+            };
+            $link = '/data/sections_recommendations/'.$id . '.txt';
+            $recomendDir = $this->getParameter('kernel.project_dir') . '/public/data/sections_recommendations';
+            $filePath = $recomendDir . '/' . $recId . '.txt';
+            if (!$filesystem->exists($filePath)) {
+                $filesystem->dumpFile($filePath, '');
+            };
+        }
 
 
         $html = $markdownService->toHtml($markdown);   
@@ -97,7 +115,8 @@ class SectionController extends AbstractController
             'html' => $html,
             'archives' => $archives,
             'archive' => $archive,
-            'ideasLink' => $ideasLink
+            'ideasLink' => $ideasLink,
+            'recommendations' => $recommendations,
         ));
 
 

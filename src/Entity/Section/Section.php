@@ -70,12 +70,18 @@ class Section
     /**
      * @ORM\OneToMany(targetEntity=SectionArchive::class, mappedBy="section")
      */
-    private $sectionArchives;    
+    private $sectionArchives;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SectionRecommendation::class, mappedBy="section")
+     */
+    private $recommendations;    
 
     public function __construct()
     {
         $this->sections = new ArrayCollection();
         $this->sectionArchives = new ArrayCollection();
+        $this->recommendations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,6 +273,36 @@ class Section
             // set the owning side to null (unless already changed)
             if ($sectionArchive->getSection() === $this) {
                 $sectionArchive->setSection(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SectionRecommendation>
+     */
+    public function getRecommendations(): Collection
+    {
+        return $this->recommendations;
+    }
+
+    public function addRecommendation(SectionRecommendation $recommendation): self
+    {
+        if (!$this->recommendations->contains($recommendation)) {
+            $this->recommendations[] = $recommendation;
+            $recommendation->setSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecommendation(SectionRecommendation $recommendation): self
+    {
+        if ($this->recommendations->removeElement($recommendation)) {
+            // set the owning side to null (unless already changed)
+            if ($recommendation->getSection() === $this) {
+                $recommendation->setSection(null);
             }
         }
 

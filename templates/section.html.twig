@@ -109,6 +109,32 @@
             <!-- Comments Sidebar -->
             <div class="comments-sidebar">
 
+                <!-- AI Assist -->
+                {% if recommendations %}
+                <div class="editor-sidebar-section">
+                <div class="comments-sidebar-header">
+                    <div class="comments-sidebar-title">
+                        🤖 Рекомендации ИИ <span class="comments-count">6</span>
+                    </div>
+                    <button class="btn btn-sm btn-ghost">+ Добавить</button>
+                </div>
+                    <div class="editor-sidebar-body">
+                       
+                        <div class="ai-assist-actions">
+                            {% for recommendation in recommendations %}
+                            <a class="ai-assist-btn" href="?recommendation={{recommendation.id}}">
+                                <div>
+                                    <div class="ai-assist-text">🤖 {{recommendation.botName}}</div>
+                                    <div class="ai-assist-desc">от {{recommendation.date}} | 🔤 6547 символов</div>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                      
+                    </div>
+                </div>
+                {% endif %}
+                
                 {% if archives %}
                 <div class="editor-sidebar-section">
                     <div class="editor-sidebar-header">
@@ -130,7 +156,9 @@
                     </div>
                 </div>
                 {% endif %}
-                
+
+
+
                 <div class="comments-sidebar-header">
                     <div class="comments-sidebar-title">
                         💬 Комментарии <span class="comments-count">6</span>

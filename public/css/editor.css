@@ -226,6 +226,11 @@
     text-align: left;
 }
 
+a.ai-assist-btn {
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
 .ai-assist-btn:hover {
     background: var(--bg-hover);
     border-color: var(--text-tertiary);
