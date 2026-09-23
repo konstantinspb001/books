@@ -13,3 +13,6 @@ section_red:
 section_save:
     path: /section_save
     controller: App\Controller\SectionController::save 
+pdf:
+    path: /book_pdf
+    controller: App\Controller\PdfController::index      

@@ -16,6 +16,10 @@ class Section
 
     const PER_PAGE = 2900; //символов на страницу
 
+    const STATYS_ACTIVE = 'active';
+    const STATYS_ARCHIVE = 'archive';//архивирован/удалён из книги
+    const STATYS_EDIT = 'edit'; //требует правок/доработки
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -50,6 +54,7 @@ class Section
 
     /**
      * @ORM\OneToMany(targetEntity=Section::class, mappedBy="parent")
+     * @ORM\OrderBy({"sort" = "DESC", "id" = "ASC"})
      */
     private $sections;
 
@@ -75,14 +80,53 @@ class Section
     /**
      * @ORM\OneToMany(targetEntity=SectionRecommendation::class, mappedBy="section")
      */
-    private $recommendations;    
+    private $recommendations;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $indexNumber;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $ideasNum;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $data = [];
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $url;    
 
     public function __construct()
     {
+        $this->status = self::STATYS_ACTIVE;
         $this->sections = new ArrayCollection();
         $this->sectionArchives = new ArrayCollection();
         $this->recommendations = new ArrayCollection();
     }
+
+    //Активная? (пабликуем)
+    public function isActive()
+    {
+        if($this->status == 'archive') return false;
+        if(strlen($this->text) > 100) return true;
+        if($this->sections) foreach ($this->sections as $section) {
+            if($section->isActive()) return true;
+        }
+
+        return false;
+    }
+
 
     public function getId(): ?int
     {
@@ -308,5 +352,67 @@ class Section
 
         return $this;
     }
+
+    public function getIndexNumber(): ?int
+    {
+        return $this->indexNumber;
+    }
+
+    public function setIndexNumber(?int $indexNumber): self
+    {
+        $this->indexNumber = $indexNumber;
+
+        return $this;
+    }
+
+    public function getIdeasNum(): ?int
+    {
+        return $this->ideasNum;
+    }
+
+    public function setIdeasNum(?int $ideasNum): self
+    {
+        $this->ideasNum = $ideasNum;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getData($name = null)
+    {
+        if($name) return $this->data[$name] ?? null;
+        return $this->data;
+    }
+
+    public function setData(?array $data): self
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
 
 }

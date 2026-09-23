@@ -45,7 +45,16 @@ class SectionController extends AbstractController
                 $text = str_replace("\n\n\n", "\n\n", $text);   
                 $subSection->setText($text);          
                 $em->flush();
-                /**/   
+                /**/ 
+
+                // Заменяем \" на « и »
+                /*
+                $text = $subSection->getText(); 
+                $text = preg_replace('/\"([^\"].*?)(\")/', '«$1»', $text);
+                $text = preg_replace('/["“”]([^"“”]+?)["“”]/u', '«$1»', $text);
+                $subSection->setText($text);  
+                $em->flush();
+                */    
 
                 $markdown .= $subSection->getText()."\n";
             }
@@ -73,23 +82,31 @@ class SectionController extends AbstractController
             }
         }
 
-        //Идеи для раздела
+        //Идеи для раздела (подсчёт числа)
+        $ideasLink = '/data/sections_ideas/'.$id . '.txt';
+        $ideasMarkdown = '';
+        $sectionDir = $this->getParameter('kernel.project_dir') . '/public/data/sections_ideas';
+        $filePath = $sectionDir . '/' . $id . '.txt';
+        if ($filesystem->exists($filePath)) {
+            $ideasMarkdown = file_get_contents($filePath);
+        } else {
+            $filesystem->dumpFile($filePath, '');
+            $ideasMarkdown = '';
+        } 
+        $html = $markdownService->toHtml($ideasMarkdown);   
+        $ideasNum = substr_count($html, '<li>');
+        $section->setIdeasNum($ideasNum);
+        $data = $section->getData();
+        $data['new_ideas'] = substr_count($html, '<li><em>');
+        $section->setData($data);
+        $em->flush();
+
         $ideas = $_GET['ideas'] ?? 0;
         $ideasLink = null;
-        if($ideas) {
-            $ideasLink = '/data/sections_ideas/'.$id . '.txt';
-            $markdown = '';
-            $sectionDir = $this->getParameter('kernel.project_dir') . '/public/data/sections_ideas';
-            $filePath = $sectionDir . '/' . $id . '.txt';
-            if ($filesystem->exists($filePath)) {
-                $markdown = file_get_contents($filePath);
-            } else {
-                $filesystem->dumpFile($filePath, '');
-                $markdown = '';
-            }
-             
-        }
+        if($ideas) $markdown = $ideasMarkdown;
 
+        //Рекомендации от ИИ
+        $recomendDir = $this->getParameter('kernel.project_dir') . '/public/data/sections_recommendations';
         $recommendations = $this->getDoctrine()->getRepository(SectionRecommendation::class)->findBy(
             ['section' => $id],
             ['id' => 'DESC']
@@ -100,13 +117,22 @@ class SectionController extends AbstractController
                 $recommendation->setDate($date);
                 $em->flush();
             };
-            $link = '/data/sections_recommendations/'.$id . '.txt';
-            $recomendDir = $this->getParameter('kernel.project_dir') . '/public/data/sections_recommendations';
             $filePath = $recomendDir . '/' . $recId . '.txt';
             if (!$filesystem->exists($filePath)) {
                 $filesystem->dumpFile($filePath, '');
             };
         }
+        $recommendation = null;
+        $recId = $_GET['recommendation'] ?? null;
+        if($recId) {
+            $recommendation = $this->getDoctrine()->getRepository(SectionRecommendation::class)->find($recId);
+            $filePath = $recomendDir . '/' . $recId . '.txt';
+            if ($filesystem->exists($filePath)) {
+                $markdown = '#🤖'.$recommendation->getBotName()." (рекомендации)\n";
+                $markdown .= file_get_contents($filePath);
+
+            };
+        };
 
 
         $html = $markdownService->toHtml($markdown);   
@@ -117,6 +143,7 @@ class SectionController extends AbstractController
             'archive' => $archive,
             'ideasLink' => $ideasLink,
             'recommendations' => $recommendations,
+            'recommendation' => $recommendation,
         ));
 
 

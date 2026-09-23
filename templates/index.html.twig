@@ -26,6 +26,7 @@
                     <button class="btn btn-primary">+ Новая глава</button>
                     <a href="/?action=book" target="_blank" class="btn btn-secondary">📒 Вся книга</a>
                     <a href="/?action=sammari" target="_blank" class="btn btn-secondary">📄 Саммари</a>
+                    <a href="/book_pdf" target="_blank" class="btn btn-secondary">📄  .PDF</a>
                     {# <button class="btn btn-secondary">⟳ Обновить саммари</button> #}
                 </div>
             </div>
@@ -63,13 +64,17 @@
                             </div>
                             <ul class="tree-sections">
                                 {% for subSection in section.sections %}
-                                 
-                                    <li>
-                                    <a href="{{ path('section', { 'id': subSection.id })}}" class="tree-section-link">
-                                        {{subSection.title}}
-                                        <span class="tree-section-page"><span style="opacity:0.3;">стр.</span> {{subSection.pagesSum}}</span>
-                                    </a>
-                                </li>
+                                    {% if subSection.status != 'archive' %} 
+                                        <li>
+                                        <a href="{{ path('section', { 'id': subSection.id })}}" class="tree-section-link">
+                                            {{subSection.title}}
+                                            <span class="tree-section-page"><span style="opacity:0.3;">стр.</span> 
+                                            {{subSection.pagesSum}}
+                                            </span>
+                                        </a>
+                                        </li>
+                                    {% endif %}
+
                                 {% endfor %}
                                 
                             </ul>
@@ -162,12 +167,18 @@
                             #}
                         </div>
                         <div class="section-list">
+                            {% set subCount = 1 %}
                             {% for subSection in section.sections %}
 
-                                <div class="section-item" style="{% if subSection.words < 2 %}background: #dcfce7;{% endif %}">
+
+                                <div class="section-item" style="{% if subSection.words < 2 %}background: #dcfce7;{% endif %}{% if subSection.status == 'archive' %} opacity:0.5; padding: 0px;text-decoration: line-through;{% endif %}">
                                     {# <div class="section-status-dot done"></div> #}
-                                    <span class="section-num">{{count}}.{{loop.index}}</span>
-                                    <div class="section-info">
+                                    <span class="section-num">
+                                        {% if subSection.status != 'archive' %}
+                                        {{count}}.{{subCount}}
+                                        {% endif %}
+                                    </span>
+                                    <div class="section-info" style="">
                                         <a href="{{ path('section', { 'id': subSection.id })}}" class="section-title-link">
                                             <span class="section-title-text">{{subSection.title}}</span>
                                             <span class="section-meta-inline">
@@ -182,11 +193,24 @@
                                             </span>
                                         </a>
                                     </div>
-                                    <div class="section-actions">
-                                        <a href="{{ path('section_red', { 'id': subSection.id })}}" class="btn btn-ghost btn-sm">✏️</a>
+                                    <div class="section-actions" style="width:100px;">
+                                        {% if subSection.ideasNum %}
+                                            {% set newIdeas = subSection.data('new_ideas') %}
+                                            <a href="{{ path('section', { 'id': subSection.id })}}?ideas=1" class="btn btn-ghost btn-sm">
+                                                💡 [ {{subSection.ideasNum - newIdeas}}{% if newIdeas %} + <b>{{newIdeas}}{% endif %}</b> ]
+                                            </a>
+                                        {% else %}
+                                            {# 
+                                             <a href="{{ path('section', { 'id': subSection.id })}}?ideas=1" class="btn btn-ghost btn-sm" style="opacity:0.4;">
+                                                💡
+                                            </a>
+                                            #} 
+                                        {% endif %}
                                         {# <a href="summary.html?chapter=1&section=1" class="btn btn-ghost btn-sm">📝</a>#}
                                     </div>
                                 </div>
+                                {% if subSection.status != 'archive' %} {% set subCount = subCount + 1 %} {% endif %}
+                                
                             {% endfor %}
 
                             

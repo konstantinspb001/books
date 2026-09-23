@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Название книги</title>
+    <style>
+        /* ============================================
+           БАЗОВЫЕ НАСТРОЙКИ И ШРИФТЫ
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 2.5cm 2cm 2.5cm 2cm;
+            
+            @top-center {
+                content: string(chapter-title);
+                font-size: 9pt;
+                color: #666;
+                border-bottom: 0.5pt solid #ccc;
+                padding-bottom: 5pt;
+            }
+            
+            @bottom-center {
+                content: counter(page);
+                font-size: 10pt;
+            }
+            
+            @bottom-left {
+                content: "© Автор";
+                font-size: 8pt;
+                color: #999;
+            }
+        }
+
+        @page :first {
+            @top-center { content: none; }
+            @bottom-center { content: none; }
+            @bottom-left { content: none; }
+        }
+
+        @page cover {
+            margin: 0;
+            @top-center { content: none; }
+            @bottom-center { content: none; }
+            @bottom-left { content: none; }
+        }
+
+        @page toc {
+            @top-center { content: "Содержание"; }
+        }
+
+        @page chapter {
+            @top-center {
+                content: string(chapter-title);
+            }
+        }
+
+        /* ============================================
+           ОБЩИЕ СТИЛИ
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Georgia", "Times New Roman", serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #222;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: "Georgia", serif;
+            page-break-after: avoid;
+            orphans: 3;
+            widows: 3;
+        }
+
+        p {
+            margin-bottom: 0.8em;
+            text-indent: 1.5em;
+        }
+
+        p:first-of-type {
+            text-indent: 0;
+        }
+
+        /* ============================================
+           ОБЛОЖКА
+           ============================================ */
+        .cover {
+            page: cover;
+            break-after: page;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            padding: 3cm;
+        }
+
+        .cover-title {
+            font-size: 36pt;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .cover-subtitle {
+            font-size: 16pt;
+            font-style: italic;
+            color: #e0e0e0;
+            margin-bottom: 2em;
+        }
+
+        .cover-author {
+            font-size: 14pt;
+            margin-top: 3em;
+            color: #ccc;
+        }
+
+        .cover-year {
+            font-size: 12pt;
+            margin-top: 1em;
+            color: #999;
+        }
+
+        /* ============================================
+           ТИТУЛЬНЫЙ ЛИСТ
+           ============================================ */
+        .title-page {
+            break-after: page;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 80vh;
+            padding: 2cm;
+        }
+
+        .title-page h1 {
+            font-size: 28pt;
+            margin-bottom: 0.5em;
+            text-indent: 0;
+        }
+
+        .title-page .author {
+            font-size: 16pt;
+            margin-top: 2em;
+            text-indent: 0;
+        }
+
+        .title-page .publisher {
+            font-size: 12pt;
+            margin-top: 4em;
+            color: #666;
+            text-indent: 0;
+        }
+
+        /* ============================================
+           СОДЕРЖАНИЕ (ОГЛАВЛЕНИЕ)
+           ============================================ */
+        .toc {
+            page: toc;
+            break-after: page;
+        }
+
+        .toc h2 {
+            font-size: 20pt;
+            text-align: center;
+            margin-bottom: 1.5em;
+            text-indent: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.6em;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .toc a {
+            color: #222;
+            text-decoration: none;
+            display: flex;
+            width: 100%;
+            align-items: baseline;
+        }
+
+        .toc a:hover {
+            color: #0f3460;
+        }
+
+        .toc .toc-title {
+            flex: 1;
+            text-indent: 0;
+        }
+
+        .toc .toc-dots {
+            flex: 1;
+            border-bottom: 1px dotted #999;
+            margin: 0 0.3em;
+            height: 0.8em;
+        }
+
+        .toc .toc-page {
+            min-width: 2em;
+            text-align: right;
+        }
+
+        .toc .toc-chapter {
+            font-weight: bold;
+            margin-top: 0.8em;
+        }
+
+        .toc .toc-section {
+            padding-left: 1.5em;
+        }
+
+        /* ============================================
+           ПРЕДИСЛОВИЕ / ВВЕДЕНИЕ
+           ============================================ */
+        .preface {
+            break-after: page;
+        }
+
+        .preface h2 {
+            font-size: 18pt;
+            text-align: center;
+            margin-bottom: 1.5em;
+            string-set: chapter-title "";
+        }
+
+        /* ============================================
+           ГЛАВЫ И РАЗДЕЛЫ
+           ============================================ */
+        .chapter {
+            page: chapter;
+            break-before: page;
+        }
+
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 2em;
+            padding-bottom: 1em;
+            border-bottom: 2pt solid #0f3460;
+        }
+
+        .chapter-number {
+            font-size: 14pt;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.5em;
+            display: block;
+        }
+
+        .chapter-title {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #1a1a2e;
+            string-set: chapter-title content();
+            text-indent: 0;
+        }
+
+        .chapter h3 {
+            font-size: 14pt;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            color: #16213e;
+        }
+
+        .chapter h4 {
+            font-size: 12pt;
+            margin-top: 1.2em;
+            margin-bottom: 0.6em;
+            font-style: italic;
+            color: #333;
+        }
+
+        /* ============================================
+           БЛОКИ ЦИТАТ, ПРИМЕЧАНИЯ
+           ============================================ */
+        blockquote {
+            margin: 1.5em 2em;
+            padding: 0.5em 1em;
+            border-left: 3pt solid #0f3460;
+            font-style: italic;
+            color: #444;
+            background: #f9f9f9;
+        }
+
+        blockquote p {
+            text-indent: 0;
+            margin-bottom: 0.5em;
+        }
+
+        blockquote cite {
+            display: block;
+            text-align: right;
+            font-style: normal;
+            font-size: 10pt;
+            color: #666;
+            margin-top: 0.5em;
+        }
+
+        /* ============================================
+           ПРИМЕЧАНИЯ В ТЕКСТЕ (СНОСКИ)
+           ============================================ */
+        .footnote {
+            font-size: 9pt;
+            vertical-align: super;
+            color: #0f3460;
+        }
+
+        .footnotes {
+            margin-top: 2em;
+            padding-top: 1em;
+            border-top: 1pt solid #ccc;
+            font-size: 9pt;
+        }
+
+        .footnotes ol {
+            padding-left: 1.5em;
+        }
+
+        .footnotes li {
+            margin-bottom: 0.5em;
+        }
+
+        /* ============================================
+           ТАБЛИЦЫ
+           ============================================ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 10pt;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            padding: 0.5em;
+            border: 1pt solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+
+        caption {
+            font-weight: bold;
+            margin-bottom: 0.5em;
+            text-align: left;
+        }
+
+        /* ============================================
+           РИСУНКИ
+           ============================================ */
+        figure {
+            margin: 1.5em 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        figcaption {
+            font-size: 10pt;
+            color: #666;
+            margin-top: 0.5em;
+            font-style: italic;
+        }
+
+        /* ============================================
+           ПРИЛОЖЕНИЯ
+           ============================================ */
+        .appendix {
+            page: chapter;
+            break-before: page;
+        }
+
+        .appendix .chapter-header {
+            border-bottom-color: #666;
+        }
+
+        .appendix .chapter-number {
+            color: #999;
+        }
+
+        /* ============================================
+           БИБЛИОГРАФИЯ
+           ============================================ */
+        .bibliography {
+            break-before: page;
+        }
+
+        .bibliography h2 {
+            font-size: 18pt;
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bibliography li {
+            margin-bottom: 1em;
+            padding-left: 2em;
+            text-indent: -2em;
+            font-size: 10pt;
+        }
+
+        /* ============================================
+           УКАЗАТЕЛЬ
+           ============================================ */
+        .index {
+            break-before: page;
+            column-count: 2;
+            column-gap: 2em;
+        }
+
+        .index h2 {
+            column-span: all;
+            font-size: 18pt;
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+
+        .index ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .index li {
+            margin-bottom: 0.3em;
+            font-size: 10pt;
+        }
+
+        .index .index-page {
+            float: right;
+            color: #666;
+        }
+
+        /* ============================================
+           ПЕЧАТЬ И РАЗРЫВЫ СТРАНИЦ
+           ============================================ */
+        .page-break {
+            break-after: page;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+        }
+
+        /* Для печати */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            a {
+                color: #222;
+                text-decoration: none;
+            }
+            
+            a[href]::after {
+                content: " (" attr(href) ")";
+                font-size: 8pt;
+                color: #666;
+            }
+            
+            /* Не показывать URL для внутренних якорей */
+            a[href^="#"]::after {
+                content: "";
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         ОБЛОЖКА
+         ============================================ -->
+    <div class="cover">
+        <div class="cover-title">Название Книги</div>
+        <div class="cover-subtitle">Подзаголовок или краткое описание книги</div>
+        <div class="cover-author">Имя Автора</div>
+        <div class="cover-year">2026</div>
+    </div>
+
+    <!-- ============================================
+         ТИТУЛЬНЫЙ ЛИСТ
+         ============================================ -->
+    <div class="title-page">
+        <h1>Название Книги</h1>
+        <p class="author">Имя Автора</p>
+        <p class="publisher">Издательство<br>Город, 2026</p>
+    </div>
+
+    <!-- ============================================
+         СОДЕРЖАНИЕ
+         ============================================ -->
+    <nav class="toc">
+        <h2>Содержание</h2>
+        <ul>
+            <li class="toc-chapter">
+                <a href="#preface">
+                    <span class="toc-title">Предисловие</span>
+                    <span class="toc-dots"></span>
+                    <span class="toc-page">5</span>
+                </a>
+            </li>
+            <li class="toc-chapter">
+                <a href="#ch1">
+                    <span class="toc-title">Глава 1. Название первой главы</span>
+                    <span class="toc-dots"></span>
+                    <span class="toc-page">7</span>
+                </a>
+            </li>
+            <li class="toc-section">
+                <a href="#ch1-1">
+                    <span class="toc-title">1.1. Первый раздел</span>
+                    <span class="toc-dots"></span>
+                    <span class="toc-page">9</span>
+                </a>
+            </li>
+            <li class="toc-section">
+                <a href="#ch1-2">
+                    <span class="toc-title">1.2. Второй раздел</span>
+                    <span class="toc-dots"></span>
+                    <span class="toc-page">15</span>
+                </a>
+            </li>
+            <li class="toc-chapter">
+                <a href="#ch2">
+                    <span class="toc-title">Глава 2. Название второй главы</span>
+                    <span class="toc-dots"></span>
+                    <span class="toc-page">23</span>
+                </a>
+            </li>
+            <li class="toc-section">
+                <a href="#ch2-1">
+                    <span class="toc-title">2.1. Первый раздел</span>
+                    <span class="toc-dots"></span>
+                    <span class="toc-page">25</span>
+                </a>
+            </li>
+            <li class="toc-chapter">
+                <a href="#appendix">
+                    <span class="toc-title">Приложение А. Дополнительные материалы</span>
+                    <span class="toc-dots"></span>
+                    <span class="toc-page">45</span>
+                </a>
+            </li>
+            <li class="toc-chapter">
+                <a href="#bibliography">
+                    <span class="toc-title">Библиография</span>
+                    <span class="toc-dots"></span>
+                    <span class="toc-page">50</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ============================================
+         ПРЕДИСЛОВИЕ
+         ============================================ -->
+    <section class="preface" id="preface">
+        <h2>Предисловие</h2>
+        <p>Это предисловие к книге. Здесь автор может рассказать о целях написания книги, благодарить людей, описать структуру издания.</p>
+        <p>Второй абзац предисловия. Текст выровнен по ширине с автоматическими переносами слов.</p>
+        <blockquote>
+            <p>«Цитата, которую автор считает важной для понимания книги.»</p>
+            <cite>— Имя автора цитаты</cite>
+        </blockquote>
+    </section>
+
+    <!-- ============================================
+         ГЛАВА 1
+         ============================================ -->
+    <article class="chapter" id="ch1">
+        <header class="chapter-header">
+            <span class="chapter-number">Глава 1</span>
+            <h2 class="chapter-title">Название первой главы</h2>
+        </header>
+
+        <p>Начало первой главы. Обратите внимание, что первый абзац главы не имеет отступа, а все последующие — имеют красную строку в 1.5em.</p>
+        <p>Второй абзац с отступом. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+        <h3 id="ch1-1">1.1. Первый раздел</h3>
+        <p>Текст первого раздела. Здесь может быть подробное изложение материала с примерами и пояснениями.</p>
+        <p>Ещё один абзац с важной информацией. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+        <figure>
+            <img src="https://via.placeholder.com/400x250/0f3460/ffffff?text=Рисунок+1" alt="Пример рисунка">
+            <figcaption>Рис. 1. Подпись к рисунку</figcaption>
+        </figure>
+
+        <h3 id="ch1-2">1.2. Второй раздел</h3>
+        <p>Текст второго раздела. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+        <table>
+            <caption>Таблица 1. Пример таблицы</caption>
+            <thead>
+                <tr>
+                    <th>Заголовок 1</th>
+                    <th>Заголовок 2</th>
+                    <th>Заголовок 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Данные 1</td>
+                    <td>Данные 2</td>
+                    <td>Данные 3</td>
+                </tr>
+                <tr>
+                    <td>Данные 4</td>
+                    <td>Данные 5</td>
+                    <td>Данные 6</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>1.2.1. Подраздел</h4>
+        <p>Текст подраздела. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <div class="footnotes">
+            <ol>
+                <li id="fn1">Это примечание к тексту главы 1.</li>
+            </ol>
+        </div>
+    </article>
+
+    <!-- ============================================
+         ГЛАВА 2
+         ============================================ -->
+    <article class="chapter" id="ch2">
+        <header class="chapter-header">
+            <span class="chapter-number">Глава 2</span>
+            <h2 class="chapter-title">Название второй главы</h2>
+        </header>
+
+        <p>Начало второй главы. Каждая глава начинается с новой страницы благодаря правилу <code>break-before: page</code>.</p>
+
+        <h3 id="ch2-1">2.1. Первый раздел</h3>
+        <p>Текст раздела второй главы. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+
+        <blockquote>
+            <p>Важная цитата или выделенный текст, который требует особого внимания читателя.</p>
+            <cite>— Автор цитаты, «Название произведения»</cite>
+        </blockquote>
+
+        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+    </article>
+
+    <!-- ============================================
+         ПРИЛОЖЕНИЕ
+         ============================================ -->
+    <article class="appendix" id="appendix">
+        <header class="chapter-header">
+            <span class="chapter-number">Приложение А</span>
+            <h2 class="chapter-title">Дополнительные материалы</h2>
+        </header>
+
+        <p>Текст приложения. Здесь могут быть размещены дополнительные таблицы, графики, код или другие материалы, не вошедшие в основной текст.</p>
+    </article>
+
+    <!-- ============================================
+         БИБЛИОГРАФИЯ
+         ============================================ -->
+    <section class="bibliography" id="bibliography">
+        <h2>Библиография</h2>
+        <ul>
+            <li>Иванов, И. И. <em>Название книги</em>. — М.: Издательство, 2020. — 320 с.</li>
+            <li>Петров, П. П. «Название статьи» // <em>Название журнала</em>. — 2021. — № 3. — С. 45–67.</li>
+            <li>Сидоров, С. С. <em>Электронный ресурс</em>. — URL: https://example.com (дата обращения: 15.05.2026).</li>
+        </ul>
+    </section>
+
+</body>
+</html>

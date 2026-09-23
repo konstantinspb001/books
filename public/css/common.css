@@ -92,6 +92,13 @@ a:hover {
     text-decoration: underline;
 }
 
+ul {
+    padding-bottom: 20px;
+}
+li {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
 /* ========== SCROLLBAR ========== */
 
 ::-webkit-scrollbar {

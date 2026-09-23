@@ -66,19 +66,30 @@
                                     <a href="?archive=0" class="btn btn-secondary btn-sm">Книга</a> > 
                                     <a href="?ideas=1" class="btn btn-secondary btn-sm">идеи</a>
                                 </div>
+                            {% elseif recommendation %}    
+                                <div class="chapter-card-actions">
+                                    <a href="?archive=0" class="btn btn-secondary btn-sm">{{section.title}}</a> > 
+                                    <a href="?recommendation={{recommendation.id}}" class="btn btn-secondary btn-sm">
+                                        рекомендация от {{recommendation.botName}}
+                                    </a>
+                                </div>
                             {% else %}    
                             <a href="/section_red/{{section.id}}" class="btn btn-primary" style="padding: 3px 10px 3px 6px;font-size: 11px;">
                                 ✏️ Редактировать
                             </a> / 
-                            <a href="?ideas=1" class="btn btn-secondary btn-sm">💡 Идеи для раздела</a>
+                            {% set newIdeas = section.data('new_ideas') %}
+                            <a href="?ideas=1" class="btn btn-secondary btn-sm">💡 Идеи 
+                                [ {{section.ideasNum - newIdeas}}{% if newIdeas %} + <b>{{newIdeas}}{% endif %}</b> ]
+                            </a>
                             {% endif %}
                         </span>
-                        <span class="chapter-meta-item" style="padding-left:100px;">📊 {{section.words}}  слов</span>
-                        <span class="chapter-meta-item">🔤 {{section.simbols}} символов</span>
-                        {% if section.changetAt %}
-                        <span class="chapter-meta-item">📅 {{section.changetAt(true)}}</span>
-
-                        {% endif %}
+                        <span class="chapter-meta-right">
+                            <span class="chapter-meta-item">📊 {{section.words}}  слов</span>
+                            <span class="chapter-meta-item">🔤 {{section.simbols}} символов</span>
+                            {% if section.changetAt %}
+                            <span class="chapter-meta-item">📅 {{section.changetAt(true)}}</span>
+                            {% endif %}
+                        </span>
                         {# <span class="chapter-meta-item"><span class="badge badge-blue">Черновик</span></span> #}
                     {% endif %}
                     </div>
@@ -112,7 +123,7 @@
                 <!-- AI Assist -->
                 {% if recommendations %}
                 <div class="editor-sidebar-section">
-                <div class="comments-sidebar-header">
+                <div class="comments-sidebar-header" style="margin-bottom: 10px;">
                     <div class="comments-sidebar-title">
                         🤖 Рекомендации ИИ <span class="comments-count">6</span>
                     </div>
@@ -124,8 +135,8 @@
                             {% for recommendation in recommendations %}
                             <a class="ai-assist-btn" href="?recommendation={{recommendation.id}}">
                                 <div>
-                                    <div class="ai-assist-text">🤖 {{recommendation.botName}}</div>
-                                    <div class="ai-assist-desc">от {{recommendation.date}} | 🔤 6547 символов</div>
+                                    <div class="ai-assist-text" style="color:#000; font-size:15px;">{{recommendation.botName}}</div>
+                                    <div class="ai-assist-desc">от {{recommendation.date}} {# | 🔤 6547 символов#}</div>
                                 </div>
                             </a>
                             {% endfor %}
@@ -147,7 +158,7 @@
                         <div class="history-item">
                             <div class="history-dot"></div>
                             <div class="history-info">
-                                <div class=""><a href="?archive_date={{archive.date}}">Архив от: {{archive.date}}</a></div
+                                <div class=""><a href="?archive_date={{archive.date}}">Архив от: {{archive.date}}</a></div>
                                 
                             </div>
                         </div>
