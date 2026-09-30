@@ -18,7 +18,7 @@ class PdfController extends AbstractController
         $sections = $query->getResult();
 
         try {
-            $coverPath = __DIR__ . '/../../public/book.jpg';
+            $coverPath = __DIR__ . '/../../public/book_big.png';
             $coverPath = str_replace('\\', '/', realpath($coverPath) ?: $coverPath);
 
             $mpdf = new \Mpdf\Mpdf([
@@ -61,11 +61,14 @@ class PdfController extends AbstractController
             <style>
                 h1 { color: #2c3e50; font-size: 21pt; margin-top: 10px; margin-bottom: 15px; }
                 h2 { color: #34495e; font-size: 16pt; margin-top: 15px; margin-bottom: 10px; }
-                p  { line-height: 1.5; font-size: 12pt; 
+                p  { margin: 0; text-indent: 0.7cm; line-height: 1.5; font-size: 12pt;
                         page-break-inside: avoid;  /* Не разрывать абзац посередине */
                         orphans: 3;                /* Минимум 3 строки в начале страницы */
                         widows: 3;                 /* Минимум 3 строки в конце страницы */
                 }
+                p.subhead { margin-top: 0; margin-bottom: 1.12em; padding-top: 1.12em; text-indent: 0; page-break-after: avoid; }
+                ul, ol { margin: 0.8em 0; }
+                li p { margin: 0.25em 0; text-indent: 0; page-break-inside: auto; }
             </style>
             ');
 
@@ -132,8 +135,7 @@ class PdfController extends AbstractController
                     $mpdf->AddPage();
                 }
 
-                $markdown = $section->getText();
-                $html = $markdownService->toHtml($markdown);
+                $html = $this->prepareHtml($section->getText(), $markdownService);
 
                 //стиль для оглавления
                 $titleStyled = '<span style="font-weight: normal;font-size: 14pt; ">' . $section->getTitle() . '</span>';
@@ -146,8 +148,7 @@ class PdfController extends AbstractController
 
                     if(!$subSection->isActive()) continue;
 
-                    $markdown = $subSection->getText();
-                    $html = $markdownService->toHtml($markdown);
+                    $html = $this->prepareHtml($subSection->getText(), $markdownService);
 
                     //стиль для оглавления
                     $subTitleStyled = '<span style="font-weight: normal; font-size: 12pt; font-style: normal; line-height: 1.5;">' . $subSection->getTitle() . '</span>';
@@ -176,5 +177,16 @@ class PdfController extends AbstractController
             echo "❌ Ошибка: " . $e->getMessage();
         }
         die();
+    }
+
+    private function prepareHtml(?string $markdown, Markdown $markdownService): string
+    {
+        $html = $markdownService->toHtml($markdown);
+
+        return preg_replace(
+            '/<p>\s*(<strong\b[^>]*>.+?<\/strong>)\s*<\/p>/su',
+            '<p class="subhead">$1</p>',
+            $html
+        );
     }
 }

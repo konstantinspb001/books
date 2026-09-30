@@ -72,7 +72,11 @@
     margin-bottom: 20px;
     /*text-indent: 2em;*/
 }
-
+.book-text p img {
+    width: 85%;
+    margin-left: 5%;
+    padding-bottom: 20px;
+}
 .book-text p:first-child {
     text-indent: 0;
 }
