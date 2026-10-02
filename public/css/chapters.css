@@ -294,7 +294,8 @@
 .section-words,
 .section-date,
 .section-discussions,
-.section-page {
+.section-page,
+.section-image {
     white-space: nowrap;
 }
 

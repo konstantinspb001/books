@@ -190,6 +190,10 @@
                                                 <span class="section-separator">·</span>
                                                
                                                 <span class="section-date">{{subSection.changetAt(true)}}</span>
+                                                {% if subSection.hasImage %}
+                                                    <span class="section-separator">·</span>
+                                                    <span class="section-image" title="В тексте есть изображение">🖼️</span>
+                                                {% endif %}
                                             </span>
                                         </a>
                                     </div>

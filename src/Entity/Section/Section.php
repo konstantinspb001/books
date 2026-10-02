@@ -162,6 +162,15 @@ class Section
         return $this->text;
     }
 
+    public function hasImage(): bool
+    {
+        if (!$this->text) {
+            return false;
+        }
+
+        return (bool) preg_match('/!\[[^\]]*\]\([^)]+\)/u', $this->text);
+    }
+
     public function setText(?string $text): self
     {
         $this->text = $text;

@@ -135,7 +135,7 @@ class SectionController extends AbstractController
         };
 
 
-        $html = $markdownService->toHtml($markdown);   
+        $html = $markdownService->addImageCaptions($markdownService->toHtml($markdown));
         return $this->render('section.html.twig', array(
             'section' => $section,
             'html' => $html,

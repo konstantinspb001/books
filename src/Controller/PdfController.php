@@ -69,6 +69,9 @@ class PdfController extends AbstractController
                 p.subhead { margin-top: 0; margin-bottom: 1.12em; padding-top: 1.12em; text-indent: 0; page-break-after: avoid; }
                 ul, ol { margin: 0.8em 0; }
                 li p { margin: 0.25em 0; text-indent: 0; page-break-inside: auto; }
+                .book-figure { text-align: center; text-indent: 0; margin: 8pt 0 10pt; }
+                .book-figure img { width: 84%; margin: 12pt 0 0; }
+                .book-caption { text-align: center; text-indent: 0; font-size: 11pt; font-style: italic; color: #555555; margin: 1pt 8% 0; line-height: 1.35; page-break-before: avoid; }
             </style>
             ');
 
@@ -181,7 +184,13 @@ class PdfController extends AbstractController
 
     private function prepareHtml(?string $markdown, Markdown $markdownService): string
     {
-        $html = $markdownService->toHtml($markdown);
+        $html = $markdownService->addImageCaptions($markdownService->toHtml($markdown));
+        $html = preg_replace('/<img\b/', '<img style="width:180mm;"', $html);
+        $html = str_replace(
+            '<figure class="book-figure">',
+            '<figure class="book-figure" style="text-align:center;text-indent:0;margin-top:8pt;margin-bottom:10pt;">',
+            $html
+        );
 
         return preg_replace(
             '/<p>\s*(<strong\b[^>]*>.+?<\/strong>)\s*<\/p>/su',
